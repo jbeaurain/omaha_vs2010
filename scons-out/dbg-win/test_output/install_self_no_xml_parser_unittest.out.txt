@@ -1,0 +1,14 @@
+[==========] Running 3 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 3 tests from RegistryProtectedTest
+[ RUN      ] RegistryProtectedTest.InstallOmaha_XmlParserNotPresent
+[       OK ] RegistryProtectedTest.InstallOmaha_XmlParserNotPresent (5 ms)
+[ RUN      ] RegistryProtectedTest.CheckSystemRequirements_XmlParserNotPresent
+[       OK ] RegistryProtectedTest.CheckSystemRequirements_XmlParserNotPresent (1 ms)
+[ RUN      ] RegistryProtectedTest.HasXmlParser_NotPresent
+[       OK ] RegistryProtectedTest.HasXmlParser_NotPresent (2 ms)
+[----------] 3 tests from RegistryProtectedTest (10 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test case ran. (10 ms total)
+[  PASSED  ] 3 tests.

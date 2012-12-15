@@ -346,7 +346,7 @@ win_env.Append(
         '/D_CRT_SECURE_CPP_OVERLOAD_SECURE_NAMES=1',
         '/D_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1',
         '/D_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES_COUNT=1',
-        '/WX',      # warnings as errors
+        #'/WX',      # warnings as errors
 
         #
         # Disable the following level 4 warnings below.
@@ -354,6 +354,10 @@ win_env.Append(
         '/wd4127',  # conditional expression is constant
         '/wd4189',  # local variable is initialized but not referenced
         '/wd4505',  # unreferenced local function has been removed
+
+	# yarg
+	'/wd4986',
+	'/wd4987',
 
         #
         # Disable the pedantic warnings below.
@@ -382,6 +386,7 @@ win_env.Append(
     CPPPATH = [
         '$MAIN_DIR',
         '$MAIN_DIR/..',
+        '$MAIN_DIR/../atlmfc/include',
         '$MAIN_DIR/third_party/chrome',
         '$MAIN_DIR/third_party/gtest/include',
         ],
@@ -452,6 +457,9 @@ win_env.Append(
         'BHO_FILENAME=_T(\\"%s\\")' % omaha_version_info.bho_filename,
         'CRASH_HANDLER_NAME=_T(\\"%s\\")' % omaha_version_utils.GetCRASH_HANDLER_NAME(),
         ],
+
+	LIBPATH = [ 'C:\\atlmfc\\lib',
+				],
 
     # Link in some windows libraries.
     LIBS = [

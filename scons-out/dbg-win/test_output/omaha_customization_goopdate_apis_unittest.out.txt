@@ -1,0 +1,120 @@
+[==========] Running 53 tests from 3 test cases.
+[----------] Global test environment set-up.
+[----------] 1 test from OmahaCustomizationTest
+[ RUN      ] OmahaCustomizationTest.Constants_ComProgIds
+[       OK ] OmahaCustomizationTest.Constants_ComProgIds (0 ms)
+[----------] 1 test from OmahaCustomizationTest (1 ms total)
+
+[----------] 15 tests from OmahaCustomizationGoopdateComInterfaceNoTypeLibTest
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.BrowserType
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.BrowserType (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.BrowserType_DefinitionsMatch
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.BrowserType_DefinitionsMatch (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.CurrentState
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.CurrentState (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.InstallPriority
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.InstallPriority (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.PostInstallAction
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.PostInstallAction (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IRegistrationUpdateHook
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IRegistrationUpdateHook (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.ICoCreateAsync
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.ICoCreateAsync (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.ICredentialDialog
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.ICredentialDialog (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IGoogleUpdate3WebSecurity
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IGoogleUpdate3WebSecurity (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IBrowserHttpRequest2
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IBrowserHttpRequest2 (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IProcessLauncher
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IProcessLauncher (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IProgressWndEvents
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IProgressWndEvents (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IJobObserver
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IJobObserver (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IGoogleUpdate
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IGoogleUpdate (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IGoogleUpdateCore
+[       OK ] OmahaCustomizationGoopdateComInterfaceNoTypeLibTest.IGoogleUpdateCore (0 ms)
+[----------] 15 tests from OmahaCustomizationGoopdateComInterfaceNoTypeLibTest (6 ms total)
+
+[----------] 37 tests from OmahaCustomizationGoopdateComInterfaceTest
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.TypeLib
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.TypeLib (326 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IGoogleUpdate3
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IGoogleUpdate3 (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IAppBundle
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IAppBundle (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.ULONG_PTR
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.ULONG_PTR (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IApp
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IApp (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IAppVersion
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IAppVersion (1 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IPackage
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IPackage (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.ICurrentState
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.ICurrentState (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IGoogleUpdate3Web
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IGoogleUpdate3Web (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IAppBundleWeb
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IAppBundleWeb (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IAppWeb
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IAppWeb (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IAppVersionWeb
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IAppVersionWeb (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.ICoCreateAsyncStatus
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.ICoCreateAsyncStatus (1 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3UserClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3UserClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3ServiceClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3ServiceClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebUserClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebUserClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebMachineClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebMachineClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebServiceClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebServiceClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebMachineFallbackClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdate3WebMachineFallbackClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.CurrentStateUserClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.CurrentStateUserClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.CurrentStateMachineClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.CurrentStateMachineClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.CoCreateAsyncClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.CoCreateAsyncClass (1 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.CredentialDialogUserClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.CredentialDialogUserClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.CredentialDialogMachineClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.CredentialDialogMachineClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleComProxyMachineClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleComProxyMachineClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleComProxyUserClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleComProxyUserClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.ProcessLauncherClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.ProcessLauncherClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.OneClickUserProcessLauncherClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.OneClickUserProcessLauncherClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.IOneClickProcessLauncher
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.IOneClickProcessLauncher (1 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.OneClickMachineProcessLauncherClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.OneClickMachineProcessLauncherClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandUserAppsClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandUserAppsClass (1 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandMachineAppsClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandMachineAppsClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandMachineAppsServiceClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandMachineAppsServiceClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandMachineAppsFallbackClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.OnDemandMachineAppsFallbackClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdateCoreClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdateCoreClass (0 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdateCoreMachineClass
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.GoogleUpdateCoreMachineClass (1 ms)
+[ RUN      ] OmahaCustomizationGoopdateComInterfaceTest.VerifyNoNewInterfaces
+[       OK ] OmahaCustomizationGoopdateComInterfaceTest.VerifyNoNewInterfaces (0 ms)
+[----------] 37 tests from OmahaCustomizationGoopdateComInterfaceTest (346 ms total)
+
+[----------] Global test environment tear-down
+[==========] 53 tests from 3 test cases ran. (353 ms total)
+[  PASSED  ] 53 tests.

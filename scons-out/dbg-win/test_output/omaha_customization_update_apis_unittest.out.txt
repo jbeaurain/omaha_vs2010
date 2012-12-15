@@ -1,0 +1,26 @@
+[==========] Running 7 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 6 tests from OmahaCustomizationUpdateComInterfaceTest
+[ RUN      ] OmahaCustomizationUpdateComInterfaceTest.TypeLib
+[       OK ] OmahaCustomizationUpdateComInterfaceTest.TypeLib (59 ms)
+[ RUN      ] OmahaCustomizationUpdateComInterfaceTest.IGoogleUpdateOneClick
+[       OK ] OmahaCustomizationUpdateComInterfaceTest.IGoogleUpdateOneClick (0 ms)
+[ RUN      ] OmahaCustomizationUpdateComInterfaceTest.IGoogleUpdate3WebControl
+[       OK ] OmahaCustomizationUpdateComInterfaceTest.IGoogleUpdate3WebControl (1 ms)
+[ RUN      ] OmahaCustomizationUpdateComInterfaceTest.GoogleUpdateOneClickControlCoClass
+[       OK ] OmahaCustomizationUpdateComInterfaceTest.GoogleUpdateOneClickControlCoClass (0 ms)
+[ RUN      ] OmahaCustomizationUpdateComInterfaceTest.GoogleUpdate3WebControlCoClass
+[       OK ] OmahaCustomizationUpdateComInterfaceTest.GoogleUpdate3WebControlCoClass (0 ms)
+[ RUN      ] OmahaCustomizationUpdateComInterfaceTest.VerifyNoNewInterfaces
+[       OK ] OmahaCustomizationUpdateComInterfaceTest.VerifyNoNewInterfaces (0 ms)
+[----------] 6 tests from OmahaCustomizationUpdateComInterfaceTest (64 ms total)
+
+[----------] 1 test from OmahaCustomizationUpdateTest
+[ RUN      ] OmahaCustomizationUpdateTest.Constants_BuildFiles
+Did not test kPluginVersions.
+[       OK ] OmahaCustomizationUpdateTest.Constants_BuildFiles (0 ms)
+[----------] 1 test from OmahaCustomizationUpdateTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 2 test cases ran. (64 ms total)
+[  PASSED  ] 7 tests.

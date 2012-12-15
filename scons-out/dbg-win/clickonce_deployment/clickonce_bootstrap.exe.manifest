@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity name="clickonce_bootstrap.exe" version="1.3.23.0" publicKeyToken="6b3b30788f940682" language="neutral" processorArchitecture="x86" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="clickonce_bootstrap" version="0.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="clickonce_bootstrap.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="4" minorVersion="10" buildNumber="0" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="clickonce_bootstrap.exe" size="4608">
+      <assemblyIdentity name="clickonce_bootstrap" version="0.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>exXFwgedsPs7vpyjLHrJQOHV8GY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="GoogleUpdateSetup.exe" size="1759552">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>DlSVsJx7Hdqd9x2AcIHmfprlaJY=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=Google Inc (TEST), OU=Digital ID Class 3 - Netscape Object Signing, O=Google Inc, L=Mountain View, S=California, C=US" issuerKeyHash="88bc44189b6b7c1e11df71ef71797402c63ea5ac" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>0XMUJb1ZyQ6r23irSDTqatNe47A=</DigestValue></Reference></SignedInfo><SignatureValue>bmFmrmT+b5gB7kyi+Mh0L84KN92jnYFZ9hnRN1mqaCk5ExcH9c08Ael7qCQnYjd1XgUEA4Vk8FsJ9lzPoD2TJi/PtWSLelOJDEm7nzAh/FTSsmPVzzgamOaOE4fwvhjtnCNFEl1QR59pt8g9SobynJWMxEvtcXBgwArpk4HtsVo=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>vzIdc1DUXqfSCUrbpwA7O4YvFJP2OYxqQ1W/kKuhc+m8ri53czHG49+SNiG+i9b6HJ3xJ0PANBAR7PYufviWEcqyl+NG8JPwC3OU526duJ4EoICSSYKolDJt391YD6HRQEAk3hOSDSUt74RRst8GVDTFkPhMHHp9Z3/27w819jU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="b0e35ed36aea3448ab78dbab0ec959bd251473d1" Description="" Url=""><as:assemblyIdentity name="clickonce_bootstrap.exe" version="1.3.23.0" publicKeyToken="6b3b30788f940682" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Google Inc (TEST), OU=Digital ID Class 3 - Netscape Object Signing, O=Google Inc, L=Mountain View, S=California, C=US</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>Trjpkq6dmxDlfPeBW80TcgLkovg=</DigestValue></Reference></SignedInfo><SignatureValue>e2kUViEYVQhhOBRToutukdxlqkkisqv6fg+syQDM3DfFFWQGWr+3rrJ+vOQdGtWTMV1bHnWSo0V0e3sGt50GHhFo8GZZEXdzIkcZyn4gJ1oIapHZPTSlN0hhrY4ciotZeUVwLz7pdT4emvRSnL5/a3J3J0OAR5gAmAtmzx+bLUY=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>vzIdc1DUXqfSCUrbpwA7O4YvFJP2OYxqQ1W/kKuhc+m8ri53czHG49+SNiG+i9b6HJ3xJ0PANBAR7PYufviWEcqyl+NG8JPwC3OU526duJ4EoICSSYKolDJt391YD6HRQEAk3hOSDSUt74RRst8GVDTFkPhMHHp9Z3/27w819jU=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIDqTCCAxKgAwIBAgIQ+QhO52KyyK9NCRujum0pEjANBgkqhkiG9w0BAQQFADCBojELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxEzARBgNVBAoTCkdvb2dsZSBJbmMxNTAzBgNVBAsTLERpZ2l0YWwgSUQgQ2xhc3MgMyAtIE5ldHNjYXBlIE9iamVjdCBTaWduaW5nMRowGAYDVQQDExFHb29nbGUgSW5jIChURVNUKTAeFw0wOTAzMTIyMTAyMjRaFw0zOTEyMzEyMzU5NTlaMIGiMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzETMBEGA1UEChMKR29vZ2xlIEluYzE1MDMGA1UECxMsRGlnaXRhbCBJRCBDbGFzcyAzIC0gTmV0c2NhcGUgT2JqZWN0IFNpZ25pbmcxGjAYBgNVBAMTEUdvb2dsZSBJbmMgKFRFU1QpMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/Mh1zUNRep9IJStunADs7hi8Uk/Y5jGpDVb+Qq6Fz6byuLndzMcbj35I2Ib6L1vocnfEnQ8A0EBHs9i5++JYRyrKX40bwk/ALc5Tnbp24ngSggJJJgqiUMm3f3VgPodFAQCTeE5INJS3vhFGy3wZUNMWQ+Ewcen1nf/bvDzX2NQIDAQABo4HdMIHaMIHXBgNVHQEEgc8wgcyAEGGNfmdG1McuUmBvXPRYuxuhgaUwgaIxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRMwEQYDVQQKEwpHb29nbGUgSW5jMTUwMwYDVQQLEyxEaWdpdGFsIElEIENsYXNzIDMgLSBOZXRzY2FwZSBPYmplY3QgU2lnbmluZzEaMBgGA1UEAxMRR29vZ2xlIEluYyAoVEVTVCmCEPkITudissivTQkbo7ptKRIwDQYJKoZIhvcNAQEEBQADgYEAdoIVTBoxH2/7EpPDlcKnZs9ysUyyRc8bSdqnTaCudijCP+y2B67kpdt/3HzRuyS1Hn5tvR+bDESYhTcHb0MPf8jcf1ztLaK5WdHWLdVNPJ649YHn12oEImqmTi6ybKJOhIKkyOayKOheEYMCTQ0P3UVJjKN+azpdl9V62zM9S2M=</X509Certificate></X509Data></KeyInfo><Object><as:Timestamp>MIIL5wYJKoZIhvcNAQcCoIIL2DCCC9QCAQExCzAJBgUrDgMCGgUAMIGRBgkqhkiG
+9w0BBwGggYMEgYB7aRRWIRhVCGE4FFOi626R3GWqSSKyq/p+D6zJAMzcN8UVZAZa
+v7eusn685B0a1ZMxXVsedZKjRXR7ewa3nQYeEWjwZlkRd3MiRxnKfiAnWghqkdk9
+NKU3SGGtjhyKi1l5RXAvPul1Ph6a9FKcvn9rcncnQ4BHmACYC2bPH5stRqCCCTAw
+ggSFMIIDbaADAgECAgMCOmQwDQYJKoZIhvcNAQEFBQAwQjELMAkGA1UEBhMCVVMx
+FjAUBgNVBAoTDUdlb1RydXN0IEluYy4xGzAZBgNVBAMTEkdlb1RydXN0IEdsb2Jh
+bCBDQTAeFw0xMjEwMTgxNDM4MzVaFw0yMjA1MjAxNDM4MzVaMF4xCzAJBgNVBAYT
+AlVTMR0wGwYDVQQKExRTeW1hbnRlYyBDb3Jwb3JhdGlvbjEwMC4GA1UEAxMnU3lt
+YW50ZWMgVGltZSBTdGFtcGluZyBTZXJ2aWNlcyBDQSAtIEcyMIIBIjANBgkqhkiG
+9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsayzSVRLlxwSCtgleZEiVypv3LgmxENza8K/
+LlBa+xTCdo5DASVDtKHiRfTot3vDdMwi17SUAAL3Te2/tLdEJGvNX0U70UTOQxJz
+F4KLabQry5kerHIbJk1xH7Ex3ftRYQJTpqr1SSwFeEWlL4nO55nn/oziVz89xpLc
+Svh7M+R5CvvwdYhBnP/FA1GZqtdsn5Nph2Upg4XCYBTEyMk7FNrAgfAfDXTekiKr
+yvf7dHwn5vdKG3+nw54trorqpuaqJxZ9YfeYcRG84lChS+Vd+uUOpyyfqmUg09iW
+6Mh8pU5IRP8Z4kQHkgvXaISAXWp4ZEXNYEZ+VMETfMV58cnBcQIDAQABo4IBZjCC
+AWIwHwYDVR0jBBgwFoAUwHqYaI2J+6sFZAwRfap9ZbjKzE4wHQYDVR0OBBYEFF+a
+9W5czMx0mtTdfe8/2+xMgC7dMBIGA1UdEwEB/wQIMAYBAf8CAQAwDgYDVR0PAQH/
+BAQDAgEGMDoGA1UdHwQzMDEwL6AtoCuGKWh0dHA6Ly9jcmwuZ2VvdHJ1c3QuY29t
+L2NybHMvZ3RnbG9iYWwuY3JsMDQGCCsGAQUFBwEBBCgwJjAkBggrBgEFBQcwAYYY
+aHR0cDovL29jc3AuZ2VvdHJ1c3QuY29tMEsGA1UdIAREMEIwQAYJKwYBBAHwIgEH
+MDMwMQYIKwYBBQUHAgEWJWh0dHA6Ly93d3cuZ2VvdHJ1c3QuY29tL3Jlc291cmNl
+cy9jcHMwKAYDVR0RBCEwH6QdMBsxGTAXBgNVBAMTEFRpbWVTdGFtcC0yMDQ4LTEw
+EwYDVR0lBAwwCgYIKwYBBQUHAwgwDQYJKoZIhvcNAQEFBQADggEBAKo+PwNBLzUT
+f4w/ElwQz+5nVXlWYA8BUg8jh3pBKEfl02ZyuwLPyQwkKUHC2i6Z4COR77EzRzzC
+CDoGlXOiGw68P7fiWfFpvvDT4RiPcy3oo5whQEDzzTq3AY3cTZS0ehAFUH8bYcWC
+FYrkLE3tNBHrW2qJWcfe9yyEwLO9OpjhRSiKIZWAP8kHl/D/QsEeQoTnssfgomqZ
+1PHUxv5XwLk65/YncA2p4HtKE5XCybmraQfZTcxmR0JKdKenbbOnNeh+S6rOvbyT
+n33GQKX8qh+o1dHwfn/S40xW/UBk8EdMUQQw6uqULyTK6QjFeFuhYskdSIeXGfpN
+pXjt7AR5DjYwggSjMIIDi6ADAgECAhB+H99ymejSRaFdC6jlsVm6MA0GCSqGSIb3
+DQEBBQUAMF4xCzAJBgNVBAYTAlVTMR0wGwYDVQQKExRTeW1hbnRlYyBDb3Jwb3Jh
+dGlvbjEwMC4GA1UEAxMnU3ltYW50ZWMgVGltZSBTdGFtcGluZyBTZXJ2aWNlcyBD
+QSAtIEcyMB4XDTEyMTAxODAwMDAwMFoXDTIyMDUxOTIzNTk1OVowYjELMAkGA1UE
+BhMCVVMxHTAbBgNVBAoTFFN5bWFudGVjIENvcnBvcmF0aW9uMTQwMgYDVQQDEytT
+eW1hbnRlYyBUaW1lIFN0YW1waW5nIFNlcnZpY2VzIFNpZ25lciAtIEc0MIIBIjAN
+BgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAomMLOUS4uyOnREm7Dv+h8GEKU5Ow
+mNutLA9KxW7/hjxTVQ8VzgQ/K/2plpbZvmF5C1vJTIZ25eBDSyKV7sIrQ8Gf2Gi0
+jkBP7oU4uRHFI/JkWPAVMm9OV6GuiKQC1yoezUvh3WPVF4kyW7BemVqonShQDhfu
+ltthO0VRHc8SVguSR/yrrvZmPUescHLnkudfzRC5xINklBm9JYDh6NIipdC6Anqh
+d5NbZcPuF3S8QYYq3AhMjJKMkS2ed0QfaNaodHfbDlsyi1aLM73ZY8hJnTrFxeoz
+C9Lxoxv0i77Zs1eLO94Ep3oisiSuLsdwxb5OgyYI+wu9qU+ZCOEQKHKqzQIDAQAB
+o4IBVzCCAVMwDAYDVR0TAQH/BAIwADAWBgNVHSUBAf8EDDAKBggrBgEFBQcDCDAO
+BgNVHQ8BAf8EBAMCB4AwcwYIKwYBBQUHAQEEZzBlMCoGCCsGAQUFBzABhh5odHRw
+Oi8vdHMtb2NzcC53cy5zeW1hbnRlYy5jb20wNwYIKwYBBQUHMAKGK2h0dHA6Ly90
+cy1haWEud3Muc3ltYW50ZWMuY29tL3Rzcy1jYS1nMi5jZXIwPAYDVR0fBDUwMzAx
+oC+gLYYraHR0cDovL3RzLWNybC53cy5zeW1hbnRlYy5jb20vdHNzLWNhLWcyLmNy
+bDAoBgNVHREEITAfpB0wGzEZMBcGA1UEAxMQVGltZVN0YW1wLTIwNDgtMjAdBgNV
+HQ4EFgQURsZpow5KFB7VTNpSYxc/Xja8DeYwHwYDVR0jBBgwFoAUX5r1blzMzHSa
+1N197z/b7EyALt0wDQYJKoZIhvcNAQEFBQADggEBAGMAMo0XHyjcBHnJJxmEuDZo
+p3UZGLJPSaxdYSuGMtANTbq1fF620jfo7VuILNIpYb4fUClKIvkXhr2HIVvRPE2/
+ZMC6LpumEKHxxIRTsI1Y8o6vEhl3H633vr6BLY6CfnD4OZYzZVmoT3+LIskYfl5k
+4rkwbQa0txGMZrosJkS5ityxh5G13L8UodyDo2CvKV5miisN7Z3QOQW5uG8eubpx
+zGjesnk6A9aI4R0pszTnIdijDytyGkK1nkX636crndfyzR3IVhIvjZ1NzjLJJmFk
+0Jp45S8SakpEAiTYV4Uyf81ZjGtzMwClXqvD8CLAywjD4Pe4uAQU7ErvOfnPyiUx
+ggH4MIIB9AIBATByMF4xCzAJBgNVBAYTAlVTMR0wGwYDVQQKExRTeW1hbnRlYyBD
+b3Jwb3JhdGlvbjEwMC4GA1UEAxMnU3ltYW50ZWMgVGltZSBTdGFtcGluZyBTZXJ2
+aWNlcyBDQSAtIEcyAhB+H99ymejSRaFdC6jlsVm6MAkGBSsOAwIaBQCgXTAYBgkq
+hkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xMjEyMTMyMjA0
+NTlaMCMGCSqGSIb3DQEJBDEWBBSOsD8XrUtGhLkT0te2RZbkox3uYjANBgkqhkiG
+9w0BAQEFAASCAQBVJhCZ2+GFHJQAAVzrDYVxPmorWjM0z1lHLIMp9gDYbpZgjQh+
+7l1Qno3YBtObIlcpXTAXQZpgQui+cAjGURmefltrCDBqZd6ztBMo0khodhxTG/4h
+eHAL4j6XTzU93K5GMhZ4w968y+e+24wxVujk2Lw07eVg/VsghQx6QaJBydVokcfX
+9th8ZOQBpi5TH+paapp+fSF8mEe/UgqQg/0s8cgVX6tAcIEuuOwVTPWbL3+G59gL
+ra5dG4jI/WPBNmxzJfMvXiTWkfoqQMuiLKl77+tVNANRxrvRczMXO5sIHQd1KLAv
+7zZ4eSUk04+omEVopvUg0jtbp4nXYwGsZMce
+</as:Timestamp></Object></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

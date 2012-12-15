@@ -1,0 +1,114 @@
+[==========] Running 47 tests from 5 test cases.
+[----------] Global test environment set-up.
+[----------] 5 tests from Update3WebControlTest
+[ RUN      ] Update3WebControlTest.SiteLock
+[       OK ] Update3WebControlTest.SiteLock (1 ms)
+[ RUN      ] Update3WebControlTest.SiteLock_Negative
+[       OK ] Update3WebControlTest.SiteLock_Negative (3 ms)
+[ RUN      ] Update3WebControlTest.GetCurrentBrowserUrl_FailIfNoSite
+[       OK ] Update3WebControlTest.GetCurrentBrowserUrl_FailIfNoSite (0 ms)
+[ RUN      ] Update3WebControlTest.GetCurrentBrowserUrl_WithIWebBrowser2
+[       OK ] Update3WebControlTest.GetCurrentBrowserUrl_WithIWebBrowser2 (0 ms)
+[ RUN      ] Update3WebControlTest.GetCurrentBrowserUrl_WithIHTMLDocument2
+[       OK ] Update3WebControlTest.GetCurrentBrowserUrl_WithIHTMLDocument2 (1 ms)
+[----------] 5 tests from Update3WebControlTest (7 ms total)
+
+[----------] 15 tests from DispatchHostTest
+[ RUN      ] DispatchHostTest.HasMethod
+[       OK ] DispatchHostTest.HasMethod (68 ms)
+[ RUN      ] DispatchHostTest.InvokeNoArgs
+[       OK ] DispatchHostTest.InvokeNoArgs (2 ms)
+[ RUN      ] DispatchHostTest.InvokeWithArgs
+[       OK ] DispatchHostTest.InvokeWithArgs (2 ms)
+[ RUN      ] DispatchHostTest.InvokePropertyWithArgs
+[       OK ] DispatchHostTest.InvokePropertyWithArgs (2 ms)
+[ RUN      ] DispatchHostTest.InvokeNonexistentMethod
+[       OK ] DispatchHostTest.InvokeNonexistentMethod (2 ms)
+[ RUN      ] DispatchHostTest.InvokeWithIncompatibleArgs
+[       OK ] DispatchHostTest.InvokeWithIncompatibleArgs (3 ms)
+[ RUN      ] DispatchHostTest.InvokeWithIncorrectNumberOfArgs
+[       OK ] DispatchHostTest.InvokeWithIncorrectNumberOfArgs (2 ms)
+[ RUN      ] DispatchHostTest.InvokeDefault
+[       OK ] DispatchHostTest.InvokeDefault (2 ms)
+[ RUN      ] DispatchHostTest.InvokeDefaultPropertyWithArgs
+[       OK ] DispatchHostTest.InvokeDefaultPropertyWithArgs (3 ms)
+[ RUN      ] DispatchHostTest.HasProperty
+[       OK ] DispatchHostTest.HasProperty (1 ms)
+[ RUN      ] DispatchHostTest.GetProperty
+[       OK ] DispatchHostTest.GetProperty (2 ms)
+[ RUN      ] DispatchHostTest.GetPropertyReadOnly
+[       OK ] DispatchHostTest.GetPropertyReadOnly (2 ms)
+[ RUN      ] DispatchHostTest.SetProperty
+[       OK ] DispatchHostTest.SetProperty (2 ms)
+[ RUN      ] DispatchHostTest.SetPropertyWriteOnly
+[       OK ] DispatchHostTest.SetPropertyWriteOnly (2 ms)
+[ RUN      ] DispatchHostTest.Unsupported
+[       OK ] DispatchHostTest.Unsupported (1 ms)
+[----------] 15 tests from DispatchHostTest (103 ms total)
+
+[----------] 10 tests from NpFunctionHostTest
+[ RUN      ] NpFunctionHostTest.GetTypeInfoCount
+[       OK ] NpFunctionHostTest.GetTypeInfoCount (0 ms)
+[ RUN      ] NpFunctionHostTest.GetTypeInfo_NotImplemented
+[       OK ] NpFunctionHostTest.GetTypeInfo_NotImplemented (0 ms)
+[ RUN      ] NpFunctionHostTest.GetIDsOfNames_NotImplemented
+[       OK ] NpFunctionHostTest.GetIDsOfNames_NotImplemented (0 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NonMethod_NotSupported
+[       OK ] NpFunctionHostTest.Invoke_NonMethod_NotSupported (0 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NamedArgs_NotSupported
+[       OK ] NpFunctionHostTest.Invoke_NamedArgs_NotSupported (0 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NoArgs_NullDispParams
+[       OK ] NpFunctionHostTest.Invoke_NoArgs_NullDispParams (0 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NoArgs_ValidDispParams
+[       OK ] NpFunctionHostTest.Invoke_NoArgs_ValidDispParams (0 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NoArgs_OneParam
+[       OK ] NpFunctionHostTest.Invoke_NoArgs_OneParam (1 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NoArgs_TwoParams
+[       OK ] NpFunctionHostTest.Invoke_NoArgs_TwoParams (0 ms)
+[ RUN      ] NpFunctionHostTest.Invoke_NoArgs_ThreeParams
+[       OK ] NpFunctionHostTest.Invoke_NoArgs_ThreeParams (0 ms)
+[----------] 10 tests from NpFunctionHostTest (5 ms total)
+
+[----------] 15 tests from VariantUtilsTest
+[ RUN      ] VariantUtilsTest.NPVariantToVariant_Void
+[       OK ] VariantUtilsTest.NPVariantToVariant_Void (0 ms)
+[ RUN      ] VariantUtilsTest.NPVariantToVariant_Null
+[       OK ] VariantUtilsTest.NPVariantToVariant_Null (0 ms)
+[ RUN      ] VariantUtilsTest.NPVariantToVariant_Bool
+[       OK ] VariantUtilsTest.NPVariantToVariant_Bool (0 ms)
+[ RUN      ] VariantUtilsTest.NPVariantToVariant_Int32
+[       OK ] VariantUtilsTest.NPVariantToVariant_Int32 (0 ms)
+[ RUN      ] VariantUtilsTest.NPVariantToVariant_Double
+[       OK ] VariantUtilsTest.NPVariantToVariant_Double (0 ms)
+[ RUN      ] VariantUtilsTest.NPVariantToVariant_String
+[       OK ] VariantUtilsTest.NPVariantToVariant_String (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_EMPTY
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_EMPTY (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_NULL
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_NULL (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_BOOL
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_BOOL (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_I4
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_I4 (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_UI4
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_UI4 (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_R8
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_R8 (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_BSTR
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_BSTR (0 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_VT_DISPATCH
+[       OK ] VariantUtilsTest.VariantToNPVariant_VT_DISPATCH (3 ms)
+[ RUN      ] VariantUtilsTest.VariantToNPVariant_Unsupported
+[       OK ] VariantUtilsTest.VariantToNPVariant_Unsupported (14 ms)
+[----------] 15 tests from VariantUtilsTest (22 ms total)
+
+[----------] 2 tests from SiteLockTest
+[ RUN      ] SiteLockTest.InApprovedDomain_GoogleDotCom
+[       OK ] SiteLockTest.InApprovedDomain_GoogleDotCom (0 ms)
+[ RUN      ] SiteLockTest.InApprovedDomain_EvilHackerDotCom
+[       OK ] SiteLockTest.InApprovedDomain_EvilHackerDotCom (0 ms)
+[----------] 2 tests from SiteLockTest (2 ms total)
+
+[----------] Global test environment tear-down
+[==========] 47 tests from 5 test cases ran. (140 ms total)
+[  PASSED  ] 47 tests.

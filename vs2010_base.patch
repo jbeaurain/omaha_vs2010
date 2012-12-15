@@ -1,0 +1,65 @@
+--- atlassert_unittest.cc	Tue Jan 20 00:26:36 1970
++++ atlassert_unittest.cc	Tue Jan 20 00:26:36 1970
+@@ -22,7 +22,7 @@
+ // The CComPtr expects the parameter to be 0.
+ TEST(AtlAssertTest, AtlAssert) {
+   ExpectAsserts expect_asserts;
+-  CComPtr<IUnknown> p(1);
++  CComPtr<IUnknown> p(reinterpret_cast<IUnknown*>(1));
+ }
+ 
+ }  // namespace omaha
+--- debug.cc	Tue Jan 20 00:26:36 1970
++++ debug.cc	Tue Jan 20 00:26:36 1970
+@@ -342,6 +342,12 @@
+ };
+ static TestInitStaticVariablesDone test_var;
+ 
++// InterlockedDecrement() is implemented as intrinsic; if we wrap it we can
++// use it as a template parameter when the ON_SCOPE_EXIT macro is used.
++static void MyInterlockedDecrement(volatile long* n) {
++  ::InterlockedDecrement(n);
++}
++
+ bool DebugReport(unsigned int id,
+                  ReportType type,
+                  const char *expr,
+@@ -350,7 +356,7 @@
+                  int linenumber,
+                  DebugReportKind debug_report_kind) {
+   int recursion_count = ::InterlockedIncrement(&g_debugassertrecursioncheck);
+-  ON_SCOPE_EXIT(::InterlockedDecrement, &g_debugassertrecursioncheck);
++  ON_SCOPE_EXIT(MyInterlockedDecrement, &g_debugassertrecursioncheck);
+   if (recursion_count > 1) {
+     ::OutputDebugString(_T("recursive debugreport skipped\n"));
+     return 1;
+--- exception_barrier_lowlevel.asm	Tue Jan 20 00:26:36 1970
++++ exception_barrier_lowlevel.asm	Tue Jan 20 00:26:36 1970
+@@ -18,7 +18,9 @@
+ ;
+ ; MASM 8.0 inserts an additional leading underscore in front of names
+ ; and this is an attempted fix until we understand why.
+-IF @version LT 800
++;
++; MASM 10.0+ seems to work fine.
++IF @version LT 800 OR @version GE 1000
+ _ExceptionBarrierHandler PROTO
+ .SAFESEH _ExceptionBarrierHandler
+ ELSE
+--- utils_unittest.cc	Tue Jan 20 00:26:36 1970
++++ utils_unittest.cc	Tue Jan 20 00:26:36 1970
+@@ -687,12 +687,12 @@
+ 
+   // Exchanging a pointer with self is idempotent.
+   old_pi = interlocked_exchange_pointer(const_cast<int**>(&pi), pi);
+-  EXPECT_EQ(pi, old_pi);
++  EXPECT_EQ(reinterpret_cast<const int*>(pi), old_pi);
+   EXPECT_EQ(20, *pi);
+ 
+   // Exchanging a pointer with NULL.
+   interlocked_exchange_pointer(const_cast<int**>(&pi), static_cast<int*>(NULL));
+-  EXPECT_EQ(NULL, pi);
++  EXPECT_EQ(reinterpret_cast<const int*>(NULL), reinterpret_cast<const int*>(pi));
+ }
+ 
+ TEST(UtilsTest, GetGuid)  {

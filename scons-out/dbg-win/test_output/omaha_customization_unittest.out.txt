@@ -1,0 +1,74 @@
+[==========] Running 32 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 32 tests from OmahaCustomizationTest
+[ RUN      ] OmahaCustomizationTest.Constants_BuildFiles
+Did not test version values.
+[       OK ] OmahaCustomizationTest.Constants_BuildFiles (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Names
+[       OK ] OmahaCustomizationTest.Constants_Names (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Filenames
+[       OK ] OmahaCustomizationTest.Constants_Filenames (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Certificate
+[       OK ] OmahaCustomizationTest.Constants_Certificate (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_OmahaAppId_String
+[       OK ] OmahaCustomizationTest.Constants_OmahaAppId_String (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_OmahaAppId_GUID
+[       OK ] OmahaCustomizationTest.Constants_OmahaAppId_GUID (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_OmahaAppId_GUIDAndStringMatch
+[       OK ] OmahaCustomizationTest.Constants_OmahaAppId_GUIDAndStringMatch (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Directories
+[       OK ] OmahaCustomizationTest.Constants_Directories (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_RegistryKeys_NotCustomized
+[       OK ] OmahaCustomizationTest.Constants_RegistryKeys_NotCustomized (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_RegistryKeys
+[       OK ] OmahaCustomizationTest.Constants_RegistryKeys (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_RegistryKeys_GroupPolicy
+[       OK ] OmahaCustomizationTest.Constants_RegistryKeys_GroupPolicy (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_RegistryValues
+[       OK ] OmahaCustomizationTest.Constants_RegistryValues (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_MsiMsp
+[       OK ] OmahaCustomizationTest.Constants_MsiMsp (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_CompatibleShellVersions
+[       OK ] OmahaCustomizationTest.Constants_CompatibleShellVersions (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_BrandCode
+[       OK ] OmahaCustomizationTest.Constants_BrandCode (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Addresses
+[       OK ] OmahaCustomizationTest.Constants_Addresses (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Config
+[       OK ] OmahaCustomizationTest.Constants_Config (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Debug
+[       OK ] OmahaCustomizationTest.Constants_Debug (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Logging
+[       OK ] OmahaCustomizationTest.Constants_Logging (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_ObjectNames_Prefixes
+[       OK ] OmahaCustomizationTest.Constants_ObjectNames_Prefixes (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_ObjectNames_Pipes
+[       OK ] OmahaCustomizationTest.Constants_ObjectNames_Pipes (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_ObjectNames_MutexesAndEvents
+[       OK ] OmahaCustomizationTest.Constants_ObjectNames_MutexesAndEvents (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_ObjectNames_SharedMemory
+[       OK ] OmahaCustomizationTest.Constants_ObjectNames_SharedMemory (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Services
+[       OK ] OmahaCustomizationTest.Constants_Services (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_ScheduledTasks
+[       OK ] OmahaCustomizationTest.Constants_ScheduledTasks (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_Plugins
+[       OK ] OmahaCustomizationTest.Constants_Plugins (0 ms)
+[ RUN      ] OmahaCustomizationTest.Constants_HostCheck
+[       OK ] OmahaCustomizationTest.Constants_HostCheck (0 ms)
+[ RUN      ] OmahaCustomizationTest.ConfigManager_RegistryKeys
+[       OK ] OmahaCustomizationTest.ConfigManager_RegistryKeys (0 ms)
+[ RUN      ] OmahaCustomizationTest.IsInternalUser
+Did not test IsInternalUser.
+[       OK ] OmahaCustomizationTest.IsInternalUser (0 ms)
+[ RUN      ] OmahaCustomizationTest.GetGoogleUserPath
+[       OK ] OmahaCustomizationTest.GetGoogleUserPath (0 ms)
+[ RUN      ] OmahaCustomizationTest.GetGoogleUpdateUserPath
+[       OK ] OmahaCustomizationTest.GetGoogleUpdateUserPath (0 ms)
+[ RUN      ] OmahaCustomizationTest.GetGoogleUpdateMachinePath
+[       OK ] OmahaCustomizationTest.GetGoogleUpdateMachinePath (0 ms)
+[----------] 32 tests from OmahaCustomizationTest (15 ms total)
+
+[----------] Global test environment tear-down
+[==========] 32 tests from 1 test case ran. (15 ms total)
+[  PASSED  ] 32 tests.

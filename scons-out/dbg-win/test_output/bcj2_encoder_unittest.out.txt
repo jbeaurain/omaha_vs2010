@@ -1,0 +1,12 @@
+[==========] Running 2 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 2 tests from Bcj2EncoderTest
+[ RUN      ] Bcj2EncoderTest.EmptyBuffer
+[       OK ] Bcj2EncoderTest.EmptyBuffer (0 ms)
+[ RUN      ] Bcj2EncoderTest.Reversible
+[       OK ] Bcj2EncoderTest.Reversible (300 ms)
+[----------] 2 tests from Bcj2EncoderTest (302 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 1 test case ran. (302 ms total)
+[  PASSED  ] 2 tests.

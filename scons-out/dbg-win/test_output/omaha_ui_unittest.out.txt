@@ -1,0 +1,28 @@
+[==========] Running 7 tests from 3 test cases.
+[----------] Global test environment set-up.
+[----------] 4 tests from SplashScreenTest
+[ RUN      ] SplashScreenTest.SplashScreen
+[       OK ] SplashScreenTest.SplashScreen (967 ms)
+[ RUN      ] SplashScreenTest.SplashScreen_QuickRelease
+[       OK ] SplashScreenTest.SplashScreen_QuickRelease (2 ms)
+[ RUN      ] SplashScreenTest.SplashScreen_NoShow
+[       OK ] SplashScreenTest.SplashScreen_NoShow (1 ms)
+[ RUN      ] SplashScreenTest.SplashScreen_PostCloseMessage
+[       OK ] SplashScreenTest.SplashScreen_PostCloseMessage (202 ms)
+[----------] 4 tests from SplashScreenTest (1175 ms total)
+
+[----------] 2 tests from UITest
+[ RUN      ] UITest.GetBundleOverallCompletionCode_BundleFailed
+[       OK ] UITest.GetBundleOverallCompletionCode_BundleFailed (2 ms)
+[ RUN      ] UITest.GetBundleOverallCompletionCode_BundleSucceeded
+[       OK ] UITest.GetBundleOverallCompletionCode_BundleSucceeded (2 ms)
+[----------] 2 tests from UITest (7 ms total)
+
+[----------] 1 test from YesNoDialogTest
+[ RUN      ] YesNoDialogTest.YesNoDialog
+[       OK ] YesNoDialogTest.YesNoDialog (29 ms)
+[----------] 1 test from YesNoDialogTest (29 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 3 test cases ran. (1215 ms total)
+[  PASSED  ] 7 tests.
