@@ -166,6 +166,6 @@ pip-log.txt
 *~
 
 # ignore libs, dlls, exes
-.exe
-.dll
-.lib
+*.exe
+*.dll
+*.lib
