@@ -1261,7 +1261,7 @@ inline bool CAtlHttpClientT<TSocketClass>::NegotiateAuth(bool bProxy) throw()
 												reinterpret_cast<BYTE*>(&dwPolicy),
 												sizeof(dwPolicy),
 												NULL,
-												0,
+												0,    
 												PUAF_NOUI,
 												NULL);
 
@@ -1545,7 +1545,7 @@ inline int CAtlHttpClientT<TSocketClass>::CrackResponseHeader(LPCSTR pBuffer, /*
 			pHeaderStart = pHeaderEnd+2;
 	}
 
-	return ATL_HEADER_PARSE_COMPLETE;
+	return ATL_HEADER_PARSE_COMPLETE;       
 }
 
 // Reads the body if the encoding is not chunked.
@@ -1699,10 +1699,7 @@ inline typename CAtlHttpClientT<TSocketClass>::CHUNK_LEX_RESULT CAtlHttpClientT<
 }
 
 template<class TSocketClass>
-inline bool CAtlHttpClientT<TSocketClass>::move_leftover_bytes(	__in_ecount(nLen) char *pBufferStart, 
-								__in int nLen, 
-								__deref_inout_ecount(nLen) char *&pBuffStart, 
-								__deref_inout char *& pBuffEnd) throw()
+inline bool CAtlHttpClientT<TSocketClass>::move_leftover_bytes(__in_ecount(nLen) char *pBufferStart, __in int nLen, __deref_inout char *&pBuffStart, __deref_inout char *& pBuffEnd) throw()
 {
 	bool bRet = true;
 	Checked::memcpy_s(pBufferStart, (pBuffEnd-pBuffStart), pBuffStart, nLen);
@@ -2468,6 +2465,7 @@ inline bool CNTLMAuthObject::AcquireCredHandle() throw()
 inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 {
 	bool bRet = false;
+	CString strVal;
 						
 	m_CurrentRequestData = (*(const_cast<const ATL_NAVIGATE_DATA*>(m_pSocket->GetCurrentNavdata())));
 	// make sure we have a good credentials handle
@@ -2501,6 +2499,9 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 				&m_ts
 				);
 
+	if (IS_ERROR(SecurityStatus))
+		return false;
+
 	if ( (SecurityStatus == SEC_I_COMPLETE_NEEDED) ||
 		 (SecurityStatus == SEC_I_COMPLETE_AND_CONTINUE) )
 	{
@@ -2508,7 +2509,10 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 	}
 
 	if (IS_ERROR(SecurityStatus))
-		return false;
+	{
+		bRet = false;
+		goto cleanup;
+	}
 
 	// create an Authentication header with the contents of the
 	// security buffer and send it to the HTTP server. The output
@@ -2516,11 +2520,16 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 	// response from the HTTP server on return.
 	LPSTR pszbuff = NULL;
 	if (!SendSecurityInfo(OutBufferDesc.Buffers(0), &pszbuff) || !pszbuff)
-		return false;
+	{
+		bRet = false;
+		goto cleanup;
+	}
 
-	CString strVal;
 	if (!m_pSocket->GetHeaderValue(m_bProxy ? g_pszProxyAuthenticate : g_pszWWWAuthenticate, strVal))
-		return false; // wrong authentication type
+	{
+		bRet = false; // wrong authentication type
+		goto cleanup;
+	}
 
 	LPCTSTR szResponsecode = strVal;
 	TCHAR pszcode[ATL_AUTH_HDR_SIZE];
@@ -2528,7 +2537,10 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 	{
 		// first four characters better be 'NTLM'
 		if (_tcsncicmp(szResponsecode, _T("NTLM"), 4) != 0)
-			return false;
+		{
+			bRet = false;
+			goto cleanup;
+		}
 
 		// skip NTLM
 		szResponsecode += 4;
@@ -2554,7 +2566,10 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 			// a SecBufferDesc to pass to the next call to InitializeSecurityContext
 			// anyways.
 			if(!OutBufferDesc.Buffers(0)->ClearBuffer(m_nMaxTokenSize))
-				return false;
+			{
+				bRet = false;
+				goto cleanup;
+			}
 				
 			_ATLTRY
 			{
@@ -2571,13 +2586,16 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 		}
 
 		if (!bRet)
-			return false;
+			goto cleanup;
 
 		// Create buffers for the challenge data
 		CSecBufferDesc *InBufferDesc = &OutBufferDesc;
 		CSecBufferDesc OutBufferDesc2;
 		if (!OutBufferDesc2.AddBuffers(1, m_nMaxTokenSize))
-			return false;
+		{
+			bRet = false;
+			goto cleanup;
+		}
 
 		// Process the challenge response from the server
 		SecurityStatus = InitializeSecurityContext(
@@ -2596,7 +2614,10 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 					);
 
 		if (IS_ERROR(SecurityStatus))
-			return false;
+		{
+			bRet = false;
+			goto cleanup;
+		}
 
 		pszbuff = NULL;
 		if (SendSecurityInfo(OutBufferDesc2.Buffers(0), &pszbuff))
@@ -2617,6 +2638,8 @@ inline bool CNTLMAuthObject::DoNTLMAuthenticate() throw()
 		}
 	}
 
+cleanup:
+	DeleteSecurityContext(&SecurityContext);
 	return bRet;
 }
 inline bool CNTLMAuthObject::GetCredentialNames(CString& theName)
@@ -2658,7 +2681,11 @@ inline bool CNTLMAuthObject::SendSecurityInfo(SecBuffer *pSecBuffer, LPSTR *pszB
 			auth_b64encoded[nDest]=0;
 			// make sure we have enough room in our header buffer
 			if ( (strlen(pszFmtStr)-2 + nDest) < ATL_AUTH_HDR_SIZE)
+#if _SECURE_ATL
 				sprintf_s(auth_header, ATL_AUTH_HDR_SIZE, pszFmtStr, auth_b64encoded);
+#else
+				_snprintf(auth_header, ATL_AUTH_HDR_SIZE, pszFmtStr, auth_b64encoded);
+#endif
 			else
 				return false;
 		}
@@ -2748,8 +2775,13 @@ inline bool CBasicAuthObject::DoBasicAuthenticate() throw()
 		auth_string_buff[nLen]=0;
 
 		// Format the Authentication header
+#if _SECURE_ATL
 		int nLenFmt = (m_bProxy ? (int)strlen(m_pszFmtProxy) : (int)strlen(m_pszFmtWWW)) + 2;
 		nLen += nLenFmt;
+#else
+		nLen += (m_bProxy ? (int)strlen(m_pszFmtProxy) : (int)strlen(m_pszFmtWWW)) + 2;
+#endif
+
 		++nLen; // Space for '\0'
 		
 		CTempBuffer<char, 512> auth_header_buff;

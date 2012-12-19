@@ -20,7 +20,6 @@
 	#include <winsock2.h>
 #endif
 #include <atlutil.h>
-#include <atlisapi.h>
 #include <atlcoll.h>
 #include <atlfile.h>
 #define SECURITY_WIN32
@@ -64,7 +63,7 @@ enum readstate{rs_init=0, rs_readheader, rs_scanheader, rs_readbody, rs_complete
 #define ATL_HTTP_HEADER _T(" HTTP/1.1\r\n")
 #define ATL_HTTP_HEADER_PROXY _T(" HTTP/1.1\r\n")
 #ifndef ATL_HTTP_USERAGENT
-	#define ATL_HTTP_USERAGENT _T("User-Agent: Microsoft-ATL-Native/") _T(_ATL_VER_RBLD) _T("\r\n")
+	#define ATL_HTTP_USERAGENT _T("User-Agent: Microsoft-ATL-Native/8.00\r\n")
 #endif
 
 #define ATL_IS_INVALIDCREDHANDLE(x) ((x.dwLower==0xFFFFFFFF) && (x.dwUpper==0xFFFFFFFF))					

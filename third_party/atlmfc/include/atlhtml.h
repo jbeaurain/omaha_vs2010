@@ -565,7 +565,11 @@ public:
 		TCHAR buffFixed[1024];
 		CTempBuffer<TCHAR> buffHeap;
 		TCHAR *szTemp = buffFixed;
+#if _SECURE_ATL
 		int nCount = _vstprintf_s((LPTSTR)szTemp, _countof(buffFixed), szFormat, args);
+#else
+		int nCount = _vsntprintf((LPTSTR)szTemp, 1024, szFormat, args);
+#endif
 		if (nCount < 0)
 		{
 			// we'll have to dynamically allocate the buffer
@@ -574,7 +578,11 @@ public:
 			ATLTRY(szTemp = buffHeap.Allocate(nCount + 1));
 			if (!szTemp)
 				return E_OUTOFMEMORY;
+#if _SECURE_ATL
 			nCount = _vstprintf_s(szTemp, nCount+1, szFormat, args);
+#else
+			nCount = _vsntprintf(szTemp, nCount+1, szFormat, args);
+#endif
 		}
 
 		va_end(args);
@@ -795,8 +803,13 @@ public:
 	HRESULT font(COLORREF clrColor, LPCTSTR szAttrs=NULL)
 	{
 		TCHAR szColor[8];
+#if _SECURE_ATL
 		_stprintf_s(szColor, _countof(szColor), _T("#%02x%02x%02x"), GetRValue(clrColor), 
 			GetGValue(clrColor), GetBValue(clrColor));
+#else
+		_stprintf(szColor, _T("#%02x%02x%02x"), GetRValue(clrColor), GetGValue(clrColor),
+			GetBValue(clrColor));
+#endif
 		return GetOuter()->font(NULL, NULL, szColor, szAttrs);
 	}
 

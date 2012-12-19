@@ -25,7 +25,7 @@
 // to something else before including this header file. For
 // example:
 // #define ATL_DEFAULT_AUTHGRP CSid(_T("My Heros"))
-//     Verify that the logged on user is a member of
+//     Verify that the logged on user is a members of
 //     the local group 'My Heros' before allowing them to
 //     administrate this site.
 //
@@ -33,7 +33,7 @@
 //     Allow everyone access
 //
 // #define ATL_DEFAULT_AUTHGRP Sids::Null
-//     Allow no one access
+//     Allow noone access
 //
 #ifndef ATL_DEFAULT_AUTHGRP
 	#define ATL_DEFAULT_AUTHGRP Sids::Admins()
@@ -42,7 +42,7 @@
 // If you #define ATL_NO_DEFAULT_AUTHORITY then there will be no authorization
 // check before allowing access to management functions. You can also #define
 // ATL_NO_DEFAULT_AUTHORITY and then declare you own instance of _Authority
-// before #include-ing atlextmgmt.h to use a different authorization scheme.
+// before #includin'ing atlextmgmt.h to use a different authorization scheme.
 #ifndef ATL_NO_DEFAULT_AUTHORITY
 	__declspec(selectany) CDefaultAuth _Authority;
 #endif
@@ -84,7 +84,7 @@
 #endif
 
 // A warning so users using the web based UI to manage their extension
-// will remember to include the stencil resources in their projects
+// will remember to include the stencil resources n their projects
 #if (defined(_ATL_THREADPOOL_MANAGEMENT) && !defined(_ATL_THREADPOOL_NOUI)) ||	(defined(_ATL_STENCILCACHE_MANAGEMENT) && !defined(_ATL_STENCILCACHE_NOUI)) ||	(defined(_ATL_DLLCACHE_MANAGEMENT) && !defined(_ATL_DLLCACHE_NOUI))
 #ifndef NO_ATL_MGMT_STENCIL_WARNING
 	#pragma message("*************** Please Note ***************")
@@ -577,7 +577,7 @@ public:
 
 	HRESULT RemoveStencilByName(BSTR szStencil) throw()
 	{
-		ATLENSURE_RETURN(m_spStencilCacheControl);
+		ATLENSURE(m_spStencilCacheControl);
 		return m_spStencilCacheControl->RemoveStencilByName(CW2A(szStencil));
 	}
 
@@ -588,7 +588,7 @@ public:
 		return m_spStencilCacheControl->RemoveAllStencils();		
 	}
 
-	// we show lifespan in milliseconds in the UI so we have to
+	// we show lifespan in milli-seconds in the UI so we have to
 	// do the conversion to 100ns intervals here.
 	HRESULT SetDefaultLifespan(unsigned __int64 dwdwLifespan)
 	{
@@ -605,7 +605,7 @@ public:
 		unsigned __int64 dwls = 0;
 		HRESULT hr = m_spStencilCacheControl->GetDefaultLifespan(&dwls);
 
-		// convert to milliseconds
+		// convert to milli seconds
 		if (SUCCEEDED(hr))
 		{
 			dwls /= CFileTime::Millisecond;
@@ -750,7 +750,7 @@ public:
 		return m_MgrObj.RemoveAllStencils();		
 	}
 
-	// we show lifespan in milliseconds in the UI.
+	// we show lifespan in milli-seconds in the UI.
 	// m_MgrObj handles the conversion to 100ns intervals.
 	[ soap_method ]
 	STDMETHOD(SetDefaultLifespan)(unsigned __int64 dwdwLifespan)

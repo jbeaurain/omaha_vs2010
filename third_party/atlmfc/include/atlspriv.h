@@ -125,11 +125,10 @@ extern __declspec(selectany) const DWORD ATL_MIME_DEFAULT_CP = 28591;
 
 // This function is used to create an CSMTPConnection-compatible recipient string 
 // from a recipient string that is in a CMimeMessage object.
-inline BOOL AtlMimeMakeRecipientsString(_In_ LPCSTR szNames, _Out_z_cap_post_count_(*pdwLen, *pdwLen) LPSTR szRecipients, _Inout_ LPDWORD pdwLen) 
+inline BOOL AtlMimeMakeRecipientsString(__in LPCSTR szNames, __out_ecount_part_z(*pdwLen, *pdwLen) LPSTR szRecipients, __inout_opt LPDWORD pdwLen = NULL) 
 {
 	ATLENSURE(szNames != NULL);
 	ATLENSURE(szRecipients != NULL);
-	ATLENSURE(pdwLen != NULL);
 
 	char ch;
 	DWORD dwLen = 0;
@@ -145,16 +144,8 @@ inline BOOL AtlMimeMakeRecipientsString(_In_ LPCSTR szNames, _Out_z_cap_post_cou
 			// Extract the address from within the <>
 			while (*szNames && *szNames != '>')
 			{
-				if( dwLen >= *pdwLen )
-				{
-					return FALSE;
-				}
 				*szRecipients++ = *szNames++;
 				dwLen++;
-			}
-			if( dwLen >= *pdwLen )
-			{
-				return FALSE;
 			}
 			// End it with a comma
 			*szRecipients++ = ',';
@@ -181,7 +172,9 @@ inline BOOL AtlMimeMakeRecipientsString(_In_ LPCSTR szNames, _Out_z_cap_post_cou
 		dwLen--;
 	}
 	*szRecipients = '\0';
-	*pdwLen = dwLen;
+
+	if (pdwLen)
+		*pdwLen = dwLen;
 
 	return TRUE;
 }
@@ -196,7 +189,7 @@ inline BOOL AtlMimeMakeRecipientsString(_In_ LPCSTR szNames, _Out_z_cap_post_cou
 	#define ATLSMTP_DEFAULT_CSET "iso-8859-1"
 #endif
 
-inline BOOL AtlMimeCharsetFromCodePage(_Out_z_cap_(cch) LPSTR szCharset, _In_ UINT uiCodePage, _In_opt_ IMultiLanguage* pMultiLanguage, _In_ size_t cch) throw()
+inline BOOL AtlMimeCharsetFromCodePage(__out_ecount_z(cch) LPSTR szCharset, __in UINT uiCodePage, __in_opt IMultiLanguage* pMultiLanguage, __in size_t cch) throw()
 {
 	ATLASSERT(szCharset != NULL);
 
@@ -257,16 +250,16 @@ inline BOOL AtlMimeCharsetFromCodePage(_Out_z_cap_(cch) LPSTR szCharset, _In_ UI
 }
 
 inline BOOL AtlMimeConvertStringW(
-	_In_ IMultiLanguage *pMultiLanguage,
-	_In_ UINT uiCodePage,
-	_In_ LPCWSTR wszIn, 
-	_Out_z_cap_post_count_(*pnLen, *pnLen) LPSTR *ppszOut, 
-	_Inout_ UINT *pnLen) throw()
+	__in IMultiLanguage *pMultiLanguage,
+	__in UINT uiCodePage,
+	__in LPCWSTR wszIn, 
+	__out_ecount_part_z(*pnLen, *pnLen) LPSTR *ppszOut, 
+	__inout UINT *pnLen) throw()
 {
-	ATLENSURE_RETURN_VAL( pMultiLanguage != NULL, FALSE );
-	ATLENSURE_RETURN_VAL( wszIn != NULL, FALSE );
-	ATLENSURE_RETURN_VAL( ppszOut != NULL, FALSE );
-	ATLENSURE_RETURN_VAL( pnLen != NULL, FALSE );
+	ATLENSURE( pMultiLanguage != NULL );
+	ATLENSURE( wszIn != NULL );
+	ATLENSURE( ppszOut != NULL );
+	ATLENSURE( pnLen != NULL );
 
 	*ppszOut = NULL;
 	*pnLen = 0;
@@ -301,11 +294,11 @@ inline BOOL AtlMimeConvertStringW(
 }
 
 inline BOOL AtlMimeConvertStringA(
-	_In_ IMultiLanguage *pMultiLanguage,
-	_In_ UINT uiCodePage,
-	_In_ LPCSTR szIn, 
-	_Out_z_cap_post_count_(*pnLen, *pnLen) LPSTR *ppszOut, 
-	_Inout_ UINT *pnLen) throw()
+	__in IMultiLanguage *pMultiLanguage,
+	__in UINT uiCodePage,
+	__in LPCSTR szIn, 
+	__out_ecount_part_z(*pnLen, *pnLen) LPSTR *ppszOut, 
+	__inout UINT *pnLen) throw()
 {
 	_ATLTRY
 	{
@@ -768,7 +761,7 @@ inline void AtlInterlockedUpdateMax(long nCurrent, long* pnMax)
 }
 
 // wrapper around InterlockedExchangeAdd
-inline LONG AtlInterlockedExchangeAdd(_Inout_ long volatile* pAddend, _In_ long nValue)
+inline LONG AtlInterlockedExchangeAdd(__inout long volatile* pAddend, __in long nValue)
 {
 #if defined(_WIN64) && defined(_M_CEE)
 

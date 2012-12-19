@@ -340,8 +340,7 @@ protected:
 	CAtlFileMappingBase* _OpenNextBlock(CAtlFileMappingBase* pPrev) throw();
 	CAtlFileMappingBase* _AllocNewBlock(CAtlFileMappingBase* pPrev, BOOL* pbExisted = NULL) throw();
 	HRESULT _OpenAllBlocks() throw();
-	DWORD& _GetBlockId(CAtlFileMappingBase* pBlock) throw(...);
-	DWORD* _GetBlockId_NoThrow(CAtlFileMappingBase* pBlock) throw();
+	DWORD& _GetBlockId(CAtlFileMappingBase* pBlock) throw();
 	CategoryInfo* _FindCategoryInfo(DWORD dwCategoryId) throw();
 	CounterInfo* _FindCounterInfo(CategoryInfo* pCategoryInfo, DWORD dwCounterId) throw();
 	CounterInfo* _FindCounterInfo(DWORD dwCategoryId, DWORD dwCounterId) throw();

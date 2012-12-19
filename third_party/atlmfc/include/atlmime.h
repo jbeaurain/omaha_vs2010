@@ -109,6 +109,7 @@ inline size_t SetRfc822Time(__out_ecount_part_z_opt(dwLen, return) LPSTR szDate,
 
 
 	// Constructs RFC 822 format: "ddd, dd mmm yyyy hh:mm:ss +/- hhmm\0"
+#if _SECURE_ATL && !defined(_ATL_MIN_CRT)
 	sprintf_s(szDate, dwLen, "Date: %3s, %d %3s %4d %02d:%02d:%02d %c%02d%02d",
 					  s_days[nDay],                            // "ddd"
 					  st.wDay,                                 // "dd"
@@ -120,6 +121,19 @@ inline size_t SetRfc822Time(__out_ecount_part_z_opt(dwLen, return) LPSTR szDate,
 					  cDiff,                                   // "+" / "-"
 					  abs (ltzHour),                           // "hh"
 					  abs (ltzMinute));                        // "mm"
+#else
+	wsprintfA(szDate, "Date: %3s, %d %3s %4d %02d:%02d:%02d %c%02d%02d",
+					  s_days[nDay],                            // "ddd"
+					  st.wDay,                                 // "dd"
+					  s_months[nMonth],                        // "mmm"
+					  st.wYear,                                // "yyyy"
+					  st.wHour,                                // "hh"
+					  st.wMinute,                              // "mm"
+					  st.wSecond,                              // "ss"
+					  cDiff,                                   // "+" / "-"
+					  abs (ltzHour),                           // "hh"
+					  abs (ltzMinute));                        // "mm"
+#endif
 	return s_dwMaxBufferLen;
 }
 
@@ -516,25 +530,29 @@ public:
 	// returns the recipients string to be (addresses only, in comma separated format)
 	ATL_NOINLINE BOOL GetRecipientsString(__out_ecount_part_z(*pdwLen, *pdwLen) LPSTR szRecip, __inout LPDWORD pdwLen) throw()
 	{
-		if ( (szRecip == NULL) || (pdwLen == NULL) )
+		if (szRecip == NULL)
 		{
 			return FALSE;
 		}
 
-		if ( *pdwLen < GetRequiredRecipientsStringLength())
+		if ((pdwLen != NULL) && (*pdwLen < GetRequiredRecipientsStringLength()))
 		{
 			*pdwLen = GetRequiredRecipientsStringLength();
 			return FALSE;
 		}
 
-		DWORD dwMaxLen = *pdwLen;
-		*pdwLen = 0;
+		DWORD dwMaxLen = 0;
+
+		if (pdwLen != NULL)
+		{
+			dwMaxLen = *pdwLen;
+			*pdwLen = 0;
+		}
 
 		DWORD dwLen = 0;
 		DWORD dwTotalLen = 0;
 		if (m_strTo.GetLength() > 0)
 		{
-			dwLen = *pdwLen - dwTotalLen;
 			if (AtlMimeMakeRecipientsString(m_strTo, szRecip, &dwLen) != TRUE)
 			{
 				return FALSE;
@@ -550,7 +568,6 @@ public:
 				*szRecip++ = ',';
 				dwTotalLen++;
 			}
-			dwLen = *pdwLen - dwTotalLen;
 			if (AtlMimeMakeRecipientsString(m_strCc, szRecip, &dwLen) != TRUE)
 			{
 				return FALSE;
@@ -567,14 +584,16 @@ public:
 				*szRecip++ = ',';
 				dwTotalLen++;
 			}
-			dwLen = *pdwLen - dwTotalLen;
 			Checked::memcpy_s(szRecip, dwMaxLen-dwTotalLen, m_strBcc, dwLen);
 			szRecip+= dwLen;
 			dwTotalLen+= dwLen;
 		}
 
 		*szRecip = '\0';
-		*pdwLen = dwTotalLen;
+		if (pdwLen != NULL)
+		{
+			*pdwLen = dwTotalLen;
+		}
 
 		return TRUE;
 	}
@@ -2216,8 +2235,13 @@ public:
 		//output a trailing boundary
 		if (*szBoundaryBuf)
 		{
+#if _SECURE_ATL
 			int nBufLen = sprintf_s(szBuf, ATL_MIME_BOUNDARYLEN+(sizeof("\r\n\r\n--%s--\r\n")),
 				"\r\n\r\n--%s--\r\n", szBoundaryBuf);
+#else
+			int nBufLen = _snprintf(szBuf, ATL_MIME_BOUNDARYLEN+(sizeof("\r\n\r\n--%s--\r\n")),
+				"\r\n\r\n--%s--\r\n", szBoundaryBuf);
+#endif
 			if ((nBufLen < 0) || (!AtlSmtpSendAndWait(hFile, szBuf, nBufLen, pOverlapped)))
 			{
 				return FALSE;
@@ -2385,7 +2409,11 @@ protected:
 		}
 		else 
 		{
+#if _SECURE_ATL
 			int ret = sprintf_s(szBoundary, nBufLen, "------=_Next_Part_%.10u.%.3u", GetTickCount(), rand()%1000); 
+#else
+			int ret = _snprintf(szBoundary, nBufLen, "------=_Next_Part_%.10u.%.3u", GetTickCount(), rand()%1000);
+#endif
 			if (ret == -1 || ret >= nBufLen)
 				return FALSE;
 		}

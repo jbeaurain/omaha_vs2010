@@ -72,7 +72,7 @@ inline BOOL AtlSmtpIsRecipientDelimiter(char ch) throw()
 inline BOOL AtlSmtpSendAndWait(HANDLE hFile, LPCSTR lpData, int nDataLength, LPOVERLAPPED pOverlapped) throw()
 {
 	ATLASSERT(lpData != NULL);
-	ATLENSURE_RETURN_VAL(pOverlapped != NULL, FALSE);
+	ATLENSURE(pOverlapped != NULL);
 
 	DWORD dwWritten = 0, dwErr = 0;
 	int nRet = 0, nBufPos = 0;

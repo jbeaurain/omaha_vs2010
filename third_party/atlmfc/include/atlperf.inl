@@ -105,9 +105,7 @@ inline CPerfObject* CPerfMon::_GetFirstInstance(CAtlFileMappingBase* pBlock)
 
 inline CPerfObject* CPerfMon::_GetNextInstance(CPerfObject* pInstance)
 {
-	ATLENSURE_RETURN_VAL(pInstance != NULL, NULL);
-	ATLENSURE_RETURN_VAL(pInstance->m_nAllocSize != (ULONG)-1, NULL);
-	ATLASSERT(pInstance->m_nAllocSize != (ULONG)0);
+	ATLENSURE(pInstance != NULL);
 
 	return reinterpret_cast<CPerfObject*>(LPBYTE(pInstance) + pInstance->m_nAllocSize);
 }
@@ -116,11 +114,8 @@ inline CAtlFileMappingBase* CPerfMon::_GetNextBlock(CAtlFileMappingBase* pBlock)
 {
 	// calling _GetNextBlock(NULL) will return the first block
 	DWORD dwNextBlockIndex = 0;
-	DWORD* pDw= _GetBlockId_NoThrow(pBlock);
-	if (pDw)
-	{
-		dwNextBlockIndex = *pDw +1;
-	}
+	if (pBlock)
+		dwNextBlockIndex = _GetBlockId(pBlock)+1;
 	if (m_aMem.GetCount() == dwNextBlockIndex)
 		return NULL;
 	return m_aMem[dwNextBlockIndex];
@@ -136,11 +131,8 @@ inline CAtlFileMappingBase* CPerfMon::_OpenNextBlock(CAtlFileMappingBase* pPrev)
 
 	// create a unique name for the shared mem segment based on the index
 	DWORD dwNextBlockIndex;
-	DWORD* pDw= _GetBlockId_NoThrow(pPrev);
-	if (pDw)
-	{
-		dwNextBlockIndex = *pDw +1;
-	}
+	if (pPrev != NULL)
+		dwNextBlockIndex = _GetBlockId(pPrev) +1;
 	else
 	{
 		// use the system allocation granularity (65536 currently. may be different in the future)
@@ -435,9 +427,11 @@ inline HRESULT CPerfMon::_SaveMap() throw()
 		memset(pCurrent, 0, nSize);
 		*pCurrent++ = (DWORD) nSize; // blob size
 		*pCurrent++ = _GetNumCategoriesAndCounters(); // number of items
+#if _SECURE_ATL
 		size_t nSizeLast = nSize;
 		nSize -= 2 * sizeof(DWORD);
 		if(nSize > nSizeLast) return E_FAIL;
+#endif
 
 		for (UINT i=0; i<_GetNumCategories(); i++)
 		{
@@ -453,9 +447,11 @@ inline HRESULT CPerfMon::_SaveMap() throw()
 			*pCurrent++ = pCategoryInfo->m_nMaxInstanceNameLen;
 			*pCurrent++ = pCategoryInfo->m_nNameId;
 			*pCurrent++ = pCategoryInfo->m_nHelpId;
+#if _SECURE_ATL
 			nSizeLast = nSize;
 			nSize -= 9 * sizeof(DWORD);
 			if(nSize > nSizeLast) return E_FAIL;
+#endif
 
 			for (UINT j=0; j<pCategoryInfo->_GetNumCounters(); j++)
 			{
@@ -470,9 +466,11 @@ inline HRESULT CPerfMon::_SaveMap() throw()
 				*pCurrent++ = pCounterInfo->m_nDefaultScale;
 				*pCurrent++ = pCounterInfo->m_nNameId;
 				*pCurrent++ = pCounterInfo->m_nHelpId;
+#if _SECURE_ATL
 				nSizeLast = nSize;
 				nSize -= 9 * sizeof(DWORD);
 				if(nSize > nSizeLast) return E_FAIL;
+#endif
 			}
 		}
 
@@ -484,15 +482,19 @@ inline HRESULT CPerfMon::_SaveMap() throw()
 			// pad the string to a dword boundary
 			int nLen = pCategoryInfo->m_strName.GetLength();
 			*pCurrent++ = nLen;
+#if _SECURE_ATL
 			nSizeLast = nSize;
 			nSize -= sizeof(DWORD);
 			if(nSize > nSizeLast) return E_FAIL;
+#endif
 
 			Checked::memcpy_s(pCurrent, nSize, CT2CW(pCategoryInfo->m_strName), sizeof(WCHAR)*nLen);
 			pCurrent += AtlAlignUp(sizeof(WCHAR) * nLen, sizeof(DWORD))/sizeof(DWORD);
+#if _SECURE_ATL
 			nSizeLast = nSize;
 			nSize -= sizeof(WCHAR)*nLen;
 			if(nSize > nSizeLast) return E_FAIL;
+#endif
 
 			for (UINT j=0; j<pCategoryInfo->_GetNumCounters(); j++)
 			{
@@ -501,15 +503,19 @@ inline HRESULT CPerfMon::_SaveMap() throw()
 				// pad the string to a dword boundary
 				int nCounterLen = pCounterInfo->m_strName.GetLength();
 				*pCurrent++ = nCounterLen;
+#if _SECURE_ATL
 				nSizeLast = nSize;
 				nSize -= sizeof(DWORD);
 				if(nSize > nSizeLast) return E_FAIL;
+#endif
 
 				Checked::memcpy_s(pCurrent, nSize, CT2CW(pCounterInfo->m_strName), sizeof(WCHAR)*nCounterLen);
 				pCurrent += AtlAlignUp(sizeof(WCHAR) * nCounterLen, sizeof(DWORD))/sizeof(DWORD);
+#if _SECURE_ATL
 				nSizeLast = nSize;
 				nSize -= sizeof(WCHAR)*nCounterLen;
 				if(nSize > nSizeLast) return E_FAIL;
+#endif
 			}
 		}
 
@@ -546,7 +552,7 @@ inline CPerfMon::CategoryInfo* CPerfMon::_FindCategoryInfo(DWORD dwCategoryId) t
 
 inline CPerfMon::CounterInfo* CPerfMon::_FindCounterInfo(CategoryInfo* pCategoryInfo, DWORD dwCounterId)
 {
-	ATLENSURE_RETURN_VAL(pCategoryInfo != NULL, NULL);
+	ATLENSURE(pCategoryInfo != NULL);
 
 	for (DWORD i=0; i<pCategoryInfo->_GetNumCounters(); i++)
 	{
@@ -591,7 +597,7 @@ inline BOOL CPerfMon::_WantCategoryType(__in_z LPWSTR szValue, __in DWORD dwCate
 
 inline LPBYTE CPerfMon::_AllocData(LPBYTE& pData, ULONG nBytesAvail, ULONG* pnBytesUsed, size_t nBytesNeeded)
 {
-	ATLENSURE_RETURN_VAL(pnBytesUsed != NULL, NULL);
+	ATLENSURE(pnBytesUsed != NULL);
 	ULONG newSize = *pnBytesUsed+static_cast<ULONG>(nBytesNeeded);
 
 	if ((newSize < *pnBytesUsed) || (newSize < (ULONG) nBytesNeeded) || (nBytesAvail < newSize))
@@ -606,39 +612,31 @@ inline LPBYTE CPerfMon::_AllocData(LPBYTE& pData, ULONG nBytesAvail, ULONG* pnBy
 
 inline DWORD& CPerfMon::_GetBlockId(CAtlFileMappingBase* pBlock) 
 {
-	DWORD* pDw = _GetBlockId_NoThrow(pBlock);
-	ATLENSURE(pDw);
-	return *pDw;
-}
+	ATLENSURE(pBlock != NULL);
 
-inline DWORD* CPerfMon::_GetBlockId_NoThrow(CAtlFileMappingBase* pBlock) 
-{
-	if (pBlock == NULL)
-		return NULL;
-
-	return LPDWORD(LPBYTE(pBlock->GetData()) + m_nSchemaSize);
+	return *LPDWORD(LPBYTE(pBlock->GetData()) + m_nSchemaSize);
 }
 
 inline void CPerfMon::_FillCategoryType(CategoryInfo* pCategoryInfo) throw()
 {
 	PERF_OBJECT_TYPE& type = pCategoryInfo->m_cache;
-	type.DefinitionLength = sizeof(PERF_OBJECT_TYPE) + sizeof(PERF_COUNTER_DEFINITION) * pCategoryInfo->_GetNumCounters();
-	type.TotalByteLength = type.DefinitionLength; // we will add the instance definitions/counter blocks as we go
-	type.HeaderLength = sizeof(PERF_OBJECT_TYPE);
-	type.ObjectNameTitleIndex = pCategoryInfo->m_nNameId;
-	type.ObjectNameTitle = NULL;
-	type.ObjectHelpTitleIndex = pCategoryInfo->m_nHelpId;
-	type.ObjectHelpTitle = NULL;
-	type.DetailLevel = pCategoryInfo->m_dwDetailLevel;
-	type.NumCounters = pCategoryInfo->_GetNumCounters();
-	type.DefaultCounter = pCategoryInfo->m_nDefaultCounter;
+    type.DefinitionLength = sizeof(PERF_OBJECT_TYPE) + sizeof(PERF_COUNTER_DEFINITION) * pCategoryInfo->_GetNumCounters();
+    type.TotalByteLength = type.DefinitionLength; // we will add the instance definitions/counter blocks as we go
+    type.HeaderLength = sizeof(PERF_OBJECT_TYPE);
+    type.ObjectNameTitleIndex = pCategoryInfo->m_nNameId;
+    type.ObjectNameTitle = NULL;
+    type.ObjectHelpTitleIndex = pCategoryInfo->m_nHelpId;
+    type.ObjectHelpTitle = NULL;
+    type.DetailLevel = pCategoryInfo->m_dwDetailLevel;
+    type.NumCounters = pCategoryInfo->_GetNumCounters();
+    type.DefaultCounter = pCategoryInfo->m_nDefaultCounter;
 	if (pCategoryInfo->m_nInstanceLess == PERF_NO_INSTANCES)
 		type.NumInstances = PERF_NO_INSTANCES;
 	else
 		type.NumInstances = 0; // this will be calculated as objects are processed
-	type.CodePage = 0;
-	type.PerfTime.QuadPart = 0;
-	QueryPerformanceFrequency (&(type.PerfFreq));
+    type.CodePage = 0;
+    type.PerfTime.QuadPart = 0;
+    QueryPerformanceFrequency (&(type.PerfFreq));
 }
 
 inline void CPerfMon::_FillCounterDef(CounterInfo* pCounterInfo, ULONG* pnCounterBlockSize) throw()
@@ -880,17 +878,6 @@ inline HRESULT CPerfMon::_CollectCategoryType(
 			return E_OUTOFMEMORY;
 
 		Checked::memcpy_s(pCounterDef, sizeof(PERF_COUNTER_DEFINITION), &pCounterInfo->m_cache, sizeof(PERF_COUNTER_DEFINITION));
-		
-		// set PerfTime and PerfFreq for PERF_ELAPSED_TIME counter.
-		if(pCounterDef->CounterType == PERF_ELAPSED_TIME)
-		{
-			LARGE_INTEGER currTime;
-			if (FALSE != QueryPerformanceCounter(&currTime))
-				pObjectType->PerfTime = currTime;
-			else
-				pObjectType->PerfTime.QuadPart = 0;
-			QueryPerformanceFrequency (&(pObjectType->PerfFreq));
-		}
 	}
 
 	// search for objects of the appropriate type and write out their instance/counter data
@@ -912,8 +899,6 @@ inline HRESULT CPerfMon::_CollectCategoryType(
 			}
 
 			pInstance = _GetNextInstance(pInstance);
-			ATLENSURE_RETURN(pInstance!= NULL);
-
 			if (pInstance->m_nAllocSize == (ULONG) -1)
 			{
 				pCurrentBlock = _GetNextBlock(pCurrentBlock);
@@ -1127,15 +1112,19 @@ inline HRESULT CPerfMon::_AppendRegStrings(
 
 			if (!bNewStringsAdded && iIndex >= iFirstIndex)
 			{
+#if _SECURE_ATL
 				LPTSTR pszOld =pszNew;
+#endif
 				_AppendStrings(pszNew, astrStrings, iFirstIndex);
 				bNewStringsAdded = true;
+#if _SECURE_ATL
 				ULONG nCharsNewLast = nCharsNew;
 				nCharsNew -= ULONG(pszNew-pszOld);
 				if(nCharsNew > nCharsNewLast) 
-				{
-					return E_FAIL;
-				}
+                {
+                    return E_FAIL;
+                }
+#endif
 			}
 
 			if (iIndex < iFirstIndex || iIndex > iLastIndex)
@@ -1197,9 +1186,11 @@ inline HRESULT CPerfMon::_RemoveRegStrings(
 			if (iIndex < iFirstIndex || iIndex > iLastIndex)
 			{
 				Checked::memmove_s(pszWrite, nMaxLen , pszRead, nLen*sizeof(TCHAR));
+#if _SECURE_ATL
 				UINT nMaxLenLast = nMaxLen;
 				nMaxLen -= nLen*sizeof(TCHAR);
 				if(nMaxLen > nMaxLenLast) return E_FAIL;
+#endif
 				pszWrite += nLen;
 			}
 			pszRead += nLen;
@@ -1490,7 +1481,11 @@ inline HRESULT CPerfMon::RegisterStrings(
 
 		// see if this language has already been registered and if so, return
 		TCHAR szNewLang[5];
+#if _SECURE_ATL
 		_sntprintf_s(szNewLang, _countof(szNewLang), _countof(szNewLang)-1, _T("%3.3x "), wPrimaryLanguage);
+#else
+		_sntprintf(szNewLang, sizeof(szNewLang)/ sizeof(TCHAR), _T("%3.3x "), wPrimaryLanguage);
+#endif
 		if (strLangs.Find(szNewLang) != -1)
 			return S_OK;
 
@@ -1659,9 +1654,6 @@ inline HRESULT CPerfMon::_UnregisterStrings() throw()
 
 		str.Format(c_szAtlPerfPerformanceKey, GetAppName());
 		dwErr = rkApp.Open(HKEY_LOCAL_MACHINE, str);
-		//The register strings was unregistered.
-		if (dwErr == ERROR_FILE_NOT_FOUND)
-			return S_OK;
 		if (dwErr != ERROR_SUCCESS)
 			return AtlHresultFromWin32(dwErr);
 
@@ -1756,9 +1748,6 @@ inline HRESULT CPerfMon::Unregister() throw()
 		return E_OUTOFMEMORY;
 	}
 	dwErr = rkApp.Open(HKEY_LOCAL_MACHINE, str);
-	// The performance counter was unregistered
-	if (dwErr == ERROR_FILE_NOT_FOUND)
-		return S_OK;
 	if (dwErr != ERROR_SUCCESS)
 		return AtlHresultFromWin32(dwErr);
 
@@ -1807,9 +1796,9 @@ inline HRESULT CPerfMon::Unregister() throw()
 		if (dwErr != ERROR_SUCCESS)
 			return AtlHresultFromWin32(dwErr);
 	}
-	rkApp.Close();
-
-	// delete the app key
+    rkApp.Close();
+	
+    // delete the app key
 	CRegKey rkServices;
 
 	_ATLTRY
@@ -2027,7 +2016,6 @@ inline HRESULT CPerfMon::_CreateInstance(
 			pEmptyBlock = pInstance;
 
 		pInstance = _GetNextInstance(pInstance);
-		ATLENSURE_RETURN(pInstance!= NULL);
 
 		if (pInstance->m_nAllocSize == 0 &&
 			m_nHeaderSize + nUsedSpace + pCategoryInfo->m_nAllocSize + sizeof(CPerfObject) > m_nAllocSize)
@@ -2526,8 +2514,6 @@ ATL_NOINLINE inline HRESULT CPerfMon::PersistToXML(IStream *pStream, BOOL bFirst
 			}
 
 			pInstance = _GetNextInstance(pInstance);
-			ATLENSURE_RETURN(pInstance!= NULL);
-
 			if (pInstance->m_nAllocSize == (ULONG)-1)
 			{
 				pCurrentBlock = _GetNextBlock(pCurrentBlock);

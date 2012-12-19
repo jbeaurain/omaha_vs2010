@@ -22,7 +22,6 @@
 #include <atlsrvres.h>
 #include <atldbcli.h>
 #include <atlspriv.h>
-#include <atlutil.h>
 
 #pragma warning (push)
 #ifndef _ATL_NO_PRAGMA_WARNINGS

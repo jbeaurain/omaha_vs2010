@@ -234,7 +234,11 @@ public:
 		// Send HELO command and get reply
 		if (bRet)
 		{
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, "HELO %s\r\n", szLocalHost);
+#else
+			nBufLen = _snprintf(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, "HELO %s\r\n", szLocalHost);
+#endif
 			if (nBufLen > 0)
 			{
 				bRet = AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, szBuf, &nBufLen, 
@@ -318,8 +322,13 @@ public:
 		//If the caller specifies the sender, rather than having an existing one in the file...
 		if (lpszSender)
 		{
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, 
 				"MAIL FROM:<%s>\r\n", (LPCSTR) CT2CA(lpszSender));
+#else
+			nBufLen = _snprintf(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, 
+				"MAIL FROM:<%s>\r\n", (LPCSTR) CT2CA(lpszSender));
+#endif
 			if ((nBufLen < 0) || 
 				(!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, 
 					ATLSMTP_MAIL_SUCC, &m_Overlapped)))
@@ -458,7 +467,11 @@ public:
 		if (bRet)
 		{
 			// End the message with a CRLF.CRLF
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, _countof(szBuf), "\r\n.\r\n");
+#else
+			nBufLen = sprintf(szBuf, "\r\n.\r\n");
+#endif
 			if (!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, 
 				szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_DATA_SUCC, &m_Overlapped))
 			{
@@ -482,8 +495,13 @@ public:
 		char szBuf[ATLSMTP_MAX_LINE_LENGTH+1];
 
 		//Send MAIL FROM command and get reply
+#if _SECURE_ATL
 		int nBufLen = sprintf_s(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, "MAIL FROM:<%s>\r\n", 
 			(lpszSender ? (LPCSTR) CT2CA(lpszSender) : msg.GetSender()));
+#else
+		int nBufLen = _snprintf(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, "MAIL FROM:<%s>\r\n", 
+			(lpszSender ? (LPCSTR) CT2CA(lpszSender) : msg.GetSender()));
+#endif
 		if ((nBufLen < 0) ||
 			(!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, 
 				szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_MAIL_SUCC, &m_Overlapped)))
@@ -514,7 +532,11 @@ public:
 		//Begin the data output
 		if (bRet)
 		{
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, _countof(szBuf), "DATA\r\n");
+#else
+			nBufLen = sprintf(szBuf, "DATA\r\n");
+#endif
 			bRet = AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, 
 						szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_DATA_INTM, &m_Overlapped);
 		}
@@ -531,7 +553,11 @@ public:
 		if (bRet)
 		{
 			//End the message with a <CRLF>.<CRLF>
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, _countof(szBuf), "\r\n.\r\n");
+#else
+			nBufLen = sprintf(szBuf, "\r\n.\r\n");
+#endif
 			if (!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, 
 					szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_DATA_SUCC, &m_Overlapped))
 			{
@@ -555,8 +581,13 @@ public:
 		char szBuf[ATLSMTP_MAX_LINE_LENGTH+1];
 
 		//Send MAIL FROM command and get reply
+#if _SECURE_ATL
 		int nBufLen = sprintf_s(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, 
 			"MAIL FROM:<%s>\r\n", (LPCSTR) CT2CA(lpszSender));
+#else
+		int nBufLen = _snprintf(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, 
+			"MAIL FROM:<%s>\r\n", (LPCSTR) CT2CA(lpszSender));
+#endif
 		if ((nBufLen < 0) || 
 			(!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, 
 				szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_MAIL_SUCC, &m_Overlapped)))
@@ -570,7 +601,11 @@ public:
 		// Begin the data output
 		if (bRet)
 		{
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, _countof(szBuf), "DATA\r\n");
+#else
+			nBufLen = sprintf(szBuf, "DATA\r\n");
+#endif
 			bRet = AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen,
 						szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_DATA_INTM, &m_Overlapped);
 		}
@@ -586,7 +621,11 @@ public:
 		if (bRet)
 		{
 			//End the message with a <CRLF>.<CRLF>
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, _countof(szBuf), "\r\n.\r\n");
+#else
+			nBufLen = sprintf(szBuf, "\r\n.\r\n");
+#endif
 			if (!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, 
 					szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, ATLSMTP_DATA_SUCC, &m_Overlapped))
 			{
@@ -684,8 +723,13 @@ public:
 		//commands as well
 		if (lpszSender || (dwFlags & ATLSMTP_DUMP_SENDER))
 		{
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, "MAIL FROM:<%s>\r\n", 
 				(lpszSender ? (LPCSTR) CT2CA(lpszSender) : msg.GetSender()));
+#else
+			nBufLen = _snprintf(szBuf, ATLSMTP_MAX_LINE_LENGTH+1, "MAIL FROM:<%s>\r\n", 
+				(lpszSender ? (LPCSTR) CT2CA(lpszSender) : msg.GetSender()));
+#endif
 			if (nBufLen > 0)
 			{
 				bRet = AtlSmtpSendAndWait(hFile, szBuf, nBufLen, &writeOverlapped);
@@ -719,7 +763,11 @@ public:
 
 		if (bRet)
 		{
+#if _SECURE_ATL
 			nBufLen = sprintf_s(szBuf, _countof(szBuf), "DATA\r\n");
+#else
+			nBufLen = sprintf(szBuf, "DATA\r\n");
+#endif
 			bRet = AtlSmtpSendAndWait(hFile, szBuf, nBufLen, &writeOverlapped);
 		}
 
@@ -751,7 +799,11 @@ protected:
 	{
 		char szBuf[ATLSMTP_MAX_LINE_LENGTH+1];
 		int nBufLen  = 0;
+#if _SECURE_ATL
 		nBufLen = sprintf_s(szBuf, _countof(szBuf), "RSET\r\n");
+#else
+		nBufLen = sprintf(szBuf, "RSET\r\n");
+#endif
 		if (!AtlSmtpSendAndCheck((HANDLE)m_hSocket, szBuf, nBufLen, szBuf, &nBufLen, ATLSMTP_MAX_LINE_LENGTH, 
 			ATLSMTP_RSET_SUCC, &m_Overlapped))
 		{
@@ -786,8 +838,13 @@ protected:
 			if (AtlSmtpIsRecipientDelimiter(ch))
 			{
 				*tmpBuf = 0;
+#if _SECURE_ATL
 				int nBufLen = sprintf_s(szBuf, ATLSMTP_MAX_LINE_LENGTH, 
 					"RCPT TO:<%s>\r\n", rcptBuf);
+#else
+				int nBufLen = _snprintf(szBuf, ATLSMTP_MAX_LINE_LENGTH, 
+					"RCPT TO:<%s>\r\n", rcptBuf);
+#endif
 				if (nBufLen > 0)
 				{
 					bRet = AtlSmtpSendAndWait(hFile, szBuf, nBufLen, pOverlapped);

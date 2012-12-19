@@ -550,34 +550,34 @@ typedef void (*PFnAsyncComplete)(AtlServerRequest *pRequestInfo, DWORD cbIO, DWO
 
 struct AtlServerRequest
 {
-	DWORD cbSize;							// For future compatibility
-	IHttpServerContext *pServerContext;		// Necessary because it wraps the ECB
-	ATLSRV_REQUESTTYPE dwRequestType;		// See the ATLSRV variables above
+	DWORD cbSize;                           // For future compatibility
+	IHttpServerContext *pServerContext;     // Necessary because it wraps the ECB
+	ATLSRV_REQUESTTYPE dwRequestType;       // See the ATLSRV variables above
 											// Indicates whether it was called through an .srf file or through a .dll file
-	ATLSRV_STATE dwRequestState;			// See the ATLSRV variables above
+	ATLSRV_STATE dwRequestState;            // See the ATLSRV variables above
 											// Indicates what state of completion the request is in
-	IRequestHandler *pHandler;				// Necessary because the callback (for async calls) must know where to
+	IRequestHandler *pHandler;              // Necessary because the callback (for async calls) must know where to
 											// route the request
-	HINSTANCE hInstDll;						// Necessary in order to release the dll properly (for async calls)
-	IIsapiExtension *pExtension;			// Necessary to requeue the request (for async calls)
-	IDllCache* pDllCache;					// Necessary to release the dll in async callback
+	HINSTANCE hInstDll;                     // Necessary in order to release the dll properly (for async calls)
+	IIsapiExtension *pExtension;            // Necessary to requeue the request (for async calls)
+	IDllCache* pDllCache;                   // Necessary to release the dll in async callback
 
 	HANDLE hFile;
 	HCACHEITEM hEntry;
 	IFileCache* pFileCache;
 
-	HANDLE m_hMutex;						// necessary to syncronize calls to HandleRequest
+	HANDLE m_hMutex;                        // necessary to syncronize calls to HandleRequest
 											// if HandleRequest could potientially make an
 											// async call before returning. only used
 											// if indicated with ATLSRV_INIT_USEASYNC_EX
 
-	DWORD dwStartTicks;						// Tick count when the request was received
+	DWORD dwStartTicks;                     // Tick count when the request was received
 	EXTENSION_CONTROL_BLOCK *pECB;
 	PFnHandleRequest pfnHandleRequest;
 	PFnAsyncComplete pfnAsyncComplete;
-	LPCSTR pszBuffer;						// buffer to be flushed asyncronously
-	DWORD dwBufferLen;						// length of data in pszBuffer
-	void* pUserData;						// value that can be used to pass user data between parent and child handlers
+	LPCSTR pszBuffer;                       // buffer to be flushed asyncronously
+	DWORD dwBufferLen;                      // length of data in pszBuffer
+	void* pUserData;                        // value that can be used to pass user data between parent and child handlers
 };
 
 inline void _ReleaseAtlServerRequest(__inout AtlServerRequest* pRequest)
@@ -657,7 +657,7 @@ public:
 #ifndef ATL_NO_SOAP
 		m_spReader.Release();
 #endif
-		if (pvParam != NULL)
+        if (pvParam != NULL)
 			(static_cast<IIsapiExtension*>(pvParam))->OnThreadTerminate();
 	}
 
@@ -783,7 +783,7 @@ public:
 	}
 
 	LPCSTR GetScriptPathTranslated()
-	{
+	{       
 		ATLENSURE(m_spParent);
 		return m_spParent->GetScriptPathTranslated();
 	}
@@ -1676,7 +1676,7 @@ public:
 		DWORD dwRet = VALIDATION_S_OK;
 		if (value < static_cast<T>(nMinValue))
 			dwRet = VALIDATION_E_LENGTHMIN;
-		else if (value > static_cast<T>(nMaxValue))
+		else if (value > static_cast<T>(nMaxValue))             
 			dwRet = VALIDATION_E_LENGTHMAX;
 		return dwRet;
 	}
@@ -2274,11 +2274,11 @@ public:
 
 	CCookie& operator=(__in const CCookie& thatCookie) throw(...)
 	{
-		if(this!=&thatCookie)
-		{
-			return Copy(thatCookie);
-		}
-		return *this;
+        if(this!=&thatCookie)
+        {
+		    return Copy(thatCookie);
+        }
+        return *this;
 	}
 
 	CCookie() throw()
@@ -2379,7 +2379,7 @@ public:
 		_ATLCATCHALL()
 		{
 		}
-		return FALSE;
+		return FALSE;        
 	}
 
 	// Call this function to add a name-value pair to the cookie.
@@ -2576,7 +2576,11 @@ public:
 		if (bRet)
 		{
 			CHAR buff[20];
+#if _SECURE_ATL
 			if (0 == _itoa_s(nMaxAge, buff, _countof(buff), 10))
+#else
+			if (_itoa(nMaxAge, buff, 10))
+#endif
 			{
 				bRet = AddAttribute("max-age", buff);
 			}
@@ -2662,9 +2666,13 @@ public:
 	// Version 1 attribute.
 	__checkReturn BOOL SetVersion(__in UINT nVersion) throw()
 	{
-		BOOL bRet = FALSE;
+		BOOL bRet = FALSE;      
 		CHAR buff[20];
+#if _SECURE_ATL
 		if (0 == _itoa_s(nVersion, buff, _countof(buff), 10))
+#else
+		if (_itoa(nVersion, buff, 10))
+#endif
 		{
 			bRet = AddAttribute("version", buff);
 		}
@@ -2717,7 +2725,7 @@ public:
 
 		if (m_Values.GetCount())
 		{
-			ATLENSURE_RETURN_VAL(szName, NULL);
+			ATLENSURE(szName);
 			const mapType::CPair *pPair = NULL;
 			ATLTRY(pPair = m_Values.Lookup(szName));
 			if (pPair)
@@ -3396,14 +3404,7 @@ public:
 					// at the end of the url we skip it
 					if (*(szQueryString+1) && *(szQueryString+2))
 					{
-						short nFirstDigit = AtlHexValue(szQueryString[1]);
-						short nSecondDigit = AtlHexValue(szQueryString[2]);
-
-						if( nFirstDigit < 0 || nSecondDigit < 0 )
-						{
-							break;
-						}
-						*szUrlCurrent = static_cast<CHAR>(16*nFirstDigit+nSecondDigit);
+						*szUrlCurrent = (CHAR)(16*AtlHexValue(szQueryString[1])+AtlHexValue(szQueryString[2]));
 						szQueryString += 2;
 					}
 					else
@@ -3444,14 +3445,7 @@ public:
 						// at the end of the url we skip it
 						if (*(szQueryString+1) && *(szQueryString+2))
 						{
-							short nFirstDigit = AtlHexValue(szQueryString[1]);
-							short nSecondDigit = AtlHexValue(szQueryString[2]);
-
-							if( nFirstDigit < 0 || nSecondDigit < 0 )
-							{
-								break;
-							}
-							*szUrlCurrent = static_cast<CHAR>(16*nFirstDigit+nSecondDigit);
+							*szUrlCurrent = (CHAR)(16*AtlHexValue(szQueryString[1])+AtlHexValue(szQueryString[2]));
 							szQueryString += 2;
 						}
 						else
@@ -5843,7 +5837,11 @@ public:
 		int nDec = 0;
 		int nSign = 0;
 		bool fWriteDec=true;
+#if _SECURE_ATL
 		if (0 != _fcvt_s(szTmp, _countof(szTmp), d, nDigitCount, &nDec, &nSign))
+#else
+		if (!SafeStringCopy(szTmp, _fcvt(d, nDigitCount, &nDec, &nSign)))
+#endif
 		{
 			// too large
 			return FALSE;
@@ -5885,7 +5883,7 @@ public:
 		CHAR szTmp[21];
 		Checked::i64toa_s(i, szTmp, _countof(szTmp), 10);
 		return Write(szTmp);
-	}
+	}       
 
 	// Call this function to write data to the IWriteStream interface managed by this object.
 	// Returns TRUE on success, FALSE on failure.
@@ -5894,7 +5892,7 @@ public:
 		CHAR szTmp[21];
 		Checked::ui64toa_s(i, szTmp, _countof(szTmp), 10);
 		return Write(szTmp);
-	}
+	}       
 
 	// Call this function to write data to the IWriteStream interface managed by this object.
 	// Returns TRUE on success, FALSE on failure.
@@ -6068,152 +6066,6 @@ public:
 	}
 };
 
-
-template <DWORD dwSizeT=ATL_ISAPI_BUFFER_SIZE>
-class CAtlIsapiBuffer
-{
-protected:
-	char m_szBuffer[dwSizeT];
-	LPSTR m_pBuffer;
-	DWORD m_dwLen;
-	DWORD m_dwAlloc;
-	HANDLE m_hProcHeap;
-
-public:
-	CAtlIsapiBuffer() throw()
-	{
-		if (dwSizeT > 0)
-			m_szBuffer[0] = 0;
-
-		m_pBuffer = m_szBuffer;
-		m_dwLen = 0;
-		m_dwAlloc = dwSizeT;
-		m_hProcHeap = GetProcessHeap();
-	}
-
-	CAtlIsapiBuffer(__in LPCSTR sz)
-	{
-		m_pBuffer = m_szBuffer;
-		m_dwLen = 0;
-		m_dwAlloc = dwSizeT;
-		m_hProcHeap = GetProcessHeap();
-
-		if (!Append(sz))
-			AtlThrow(E_OUTOFMEMORY);
-	}
-
-	~CAtlIsapiBuffer() throw()
-	{
-		Free();
-	}
-
-	BOOL Alloc(__in DWORD dwSize) throw()
-	{
-		if (m_dwAlloc >= dwSize)
-		{
-			return TRUE;
-		}
-		if (m_pBuffer != m_szBuffer)
-		{
-			HeapFree(m_hProcHeap, 0, m_pBuffer);
-			m_dwLen = 0;
-			m_dwAlloc = 0;
-		}
-		m_pBuffer = (LPSTR)HeapAlloc(m_hProcHeap, 0, dwSize);
-		if (m_pBuffer)
-		{
-			m_dwAlloc = dwSize;
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-	BOOL ReAlloc(__in DWORD dwNewSize) throw()
-	{
-		if (dwNewSize <= m_dwAlloc)
-			return TRUE;
-
-		if (m_pBuffer == m_szBuffer)
-		{
-			BOOL bRet = Alloc(dwNewSize);
-			if (bRet)
-			{
-				Checked::memcpy_s(m_pBuffer, dwNewSize, m_szBuffer, m_dwLen);
-			}
-			return bRet;
-		}
-
-		LPSTR pvNew = (LPSTR )HeapReAlloc(m_hProcHeap, 0, m_pBuffer, dwNewSize);
-		if (pvNew)
-		{
-			m_pBuffer = pvNew;
-			m_dwAlloc = dwNewSize;
-			return TRUE;
-		}
-		return FALSE;
-	}
-
-	void Free() throw()
-	{
-		if (m_pBuffer != m_szBuffer)
-		{
-			HeapFree(m_hProcHeap,0 , m_pBuffer);
-			m_dwAlloc = dwSizeT;
-			m_pBuffer = m_szBuffer;
-		}
-		Empty();
-	}
-
-	void Empty() throw()
-	{
-		if (m_pBuffer)
-		{
-			m_pBuffer[0]=0;
-			m_dwLen  = 0;
-		}
-	}
-
-	DWORD GetLength() throw()
-	{
-		return m_dwLen;
-	}
-
-	BOOL Append(__in LPCSTR sz, __in int nLen = -1) throw()
-	{
-		if (!sz)
-			return FALSE;
-
-		if (nLen == -1)
-			nLen = (int) strlen(sz);
-
-                DWORD newLen = m_dwLen + nLen + 1;
-                if (newLen <= m_dwLen || newLen <= (DWORD)nLen)
-                {
-                        return FALSE;
-                }
-		if (newLen > m_dwAlloc)
-		{
-			if (!ReAlloc(m_dwAlloc + (nLen+1 > ATL_ISAPI_BUFFER_SIZE ? nLen+1 : ATL_ISAPI_BUFFER_SIZE)))
-				return FALSE;
-		}
-		Checked::memcpy_s(m_pBuffer + m_dwLen, m_dwAlloc-m_dwLen, sz, nLen);
-		m_dwLen += nLen;
-		m_pBuffer[m_dwLen]=0;
-		return TRUE;
-	}
-
-	operator LPCSTR() throw()
-	{
-		return m_pBuffer;
-	}
-
-	CAtlIsapiBuffer& operator+=(__in LPCSTR sz)
-	{
-		if (!Append(sz))
-			AtlThrow(E_OUTOFMEMORY);
-		return *this;
-	}
-}; // class CAtlIsapiBuffer
 
 // This class represents the response that the web server will send back to the client.
 //
@@ -7740,7 +7592,7 @@ inline BOOL AtlImpersonateClient(__in IHttpServerContext *pServerContext)
 
 	if (!SetThreadToken(NULL, hToken))
 		return FALSE;
-	return TRUE;
+	return TRUE;    
 }
 
 // Helper class to set the thread impersonation token
@@ -8088,7 +7940,7 @@ inline HTTP_CODE _AtlGetHandlerName(__in LPCSTR szFileName, __out_ecount(MAX_PAT
 }
 
 // _AtlCrackHandler cracks a request path of the form dll_path/handler_name into its
-// constituent parts
+// consituent parts
 // szHandlerDllName - the full handler path of the form "dll_path/handler_name"
 // szDllPath - the DLL path (should be of length MAX_PATH)
 // szHandlerName - the handler name (should be of length ATL_MAX_HANDLER_NAME_LEN+1)
@@ -8134,7 +7986,7 @@ inline BOOL _AtlCrackHandler(
 		// right trim szSlash;
 		szSlashEnd = szSlash;
 		while (*szSlashEnd && !isspace(static_cast<unsigned char>(*szSlashEnd)))
-			szSlashEnd++;
+			szSlashEnd++;       
 	}
 	else // only the <dll_name>
 	{
@@ -8436,7 +8288,7 @@ public:
 	}
 
 	DWORD GetTotalBytes()
-	{
+	{       
 		ATLASSERT(FALSE);
 		return 0;
 	}
@@ -9784,7 +9636,7 @@ public:
 				{
 					CCritSecLock Lock(m_critSec.m_sec);
 					if (m_bDebug)
-					{
+					{            
 						HandleError(pRequestInfo->pServerContext, 204, DBG_SUBERR_ALREADY_DEBUGGING);
 						RequestComplete(pRequestInfo, 204, DBG_SUBERR_ALREADY_DEBUGGING);   // Already being debugged by another process
 						return FALSE;
@@ -9876,7 +9728,11 @@ public:
 					if (FAILED(hr))
 					{
 						char szRetBuf[256];
+#if _SECURE_ATL
 						int nLen = sprintf_s(szRetBuf, _countof(szRetBuf), "204 HRESULT=0x%.08X;ErrorString=Unable to attach to worker process", hr);
+#else
+						int nLen = _snprintf(szRetBuf, _countof(szRetBuf), "204 HRESULT=0x%.08X;ErrorString=Unable to attach to worker process", hr);
+#endif
 						if (nLen > 0)
 						{
 							DWORD dwLen = nLen;
@@ -9902,7 +9758,7 @@ public:
 				{
 					RequestComplete(pRequestInfo, 501, SUBERR_NONE);   // Not Implemented
 					return FALSE;
-				}
+				}            
 			}
 			return TRUE;
 		}
@@ -10511,7 +10367,7 @@ public:
 			hcErr = HTTP_FAIL;
 		}
 
-		return hcErr;
+		return hcErr;       
 	}
 
 	virtual bool CheckAccount(IHttpServerContext *pContext, const SID *psidAuthGroup) throw()

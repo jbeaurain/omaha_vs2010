@@ -13,6 +13,10 @@
 
 #pragma once
 
+#ifdef _ATL_MIN_CRT
+#error "_ATL_MIN_CRT cannot be used with atlstencil.h"
+#endif
+
 #include <atlisapi.h>
 #include <atlfile.h>
 #include <atlutil.h>
@@ -718,7 +722,7 @@ private:
 	HINSTANCE m_hResInst;
 
 	class CParseErrorProvider : public ITagReplacerImpl<CParseErrorProvider>,
-		public CComObjectRootEx<CComSingleThreadModel>
+		public CComObjectRootEx<CComSingleThreadModel>           
 	{
 	public:
 		BEGIN_COM_MAP(CParseErrorProvider)
@@ -1186,15 +1190,23 @@ public:
 			return false;
 		}
 		
+#if _SECURE_ATL
 		if(0 != strcpy_s(szDllPath, nPathLen, m_szDllPath))
 		{
 			return false;
 		}
+#else
+		strcpy(szDllPath, m_szDllPath);
+#endif
 
+#if _SECURE_ATL
 		if(0 != strcpy_s(szHandlerName, nHandlerNameLen, m_szHandlerName))
 		{
 			return false;
 		}
+#else
+		strcpy(szHandlerName, m_szHandlerName);
+#endif
 
 		return true;
 	}
@@ -1379,7 +1391,7 @@ public:
 					{
 						AddError(IDS_STENCIL_UNCLOSEDBLOCK_WHILE, token.pStart);
 					}
-					else
+					else          
 					{
 						AddReplacementError(token.szMethodName, token.pStart);
 					}
@@ -2294,8 +2306,6 @@ public:
 			*ppv = static_cast<IMemoryCacheClient*>(this);
 			return S_OK;
 		}
-
-		*ppv = NULL;
 		return E_NOINTERFACE;
 	}
 
@@ -3477,7 +3487,11 @@ public:
 		if (!szResourceType)
 			szResourceType = (LPCSTR) RT_HTML;
 		char szName[80];
+#if _SECURE_ATL
 		int nResult = sprintf_s(szName, sizeof(szName), "%p/%u", hInstResource, nID);
+#else
+		int nResult = _snprintf(szName, sizeof(szName), "%p/%u", hInstResource, nID);
+#endif
 		if ((nResult < 0) || (nResult == sizeof(szName)))
 		{
 			return HTTP_FAIL;

@@ -386,7 +386,7 @@ win_env.Append(
     CPPPATH = [
         '$MAIN_DIR',
         '$MAIN_DIR/..',
-        '$MAIN_DIR/../atlmfc/include',
+        '$MAIN_DIR/third_party/atlmfc/include',
         '$MAIN_DIR/third_party/chrome',
         '$MAIN_DIR/third_party/gtest/include',
         ],
@@ -458,7 +458,8 @@ win_env.Append(
         'CRASH_HANDLER_NAME=_T(\\"%s\\")' % omaha_version_utils.GetCRASH_HANDLER_NAME(),
         ],
 
-	LIBPATH = [ 'C:\\atlmfc\\lib',
+	LIBPATH = [ 
+        '$MAIN_DIR/third_party/atlmfc/lib',
 				],
 
     # Link in some windows libraries.
